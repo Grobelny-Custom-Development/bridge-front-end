@@ -14,7 +14,6 @@ import Login from './Login.jsx'
 class BridgeRouter extends Component {
 
     render(){
-      console.log('bridgeRouter')
         return(
         <Router>
           <nav>

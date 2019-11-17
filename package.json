@@ -5,23 +5,28 @@
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.23",
     "@emotion/core": "^10.0.22",
+    "axios": "^0.19.0",
+    "express": "^4.17.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
   },
   "scripts": {
+    "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
+    "dev:start": "nodemon ./server-build/index.js",
+    "dev": "npm-run-all --parallel build dev:*",
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode development",
     "precommit": "lint-commited",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-    "lint-commited": {
-      "*.{js,jsx}": [
-        "stylelint --fix",
-        "git add"
-      ]
+  "lint-commited": {
+    "*.{js,jsx}": [
+      "stylelint --fix",
+      "git add"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,13 +47,19 @@
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-app": "^9.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.19.4",
+    "npm-run-all": "^4.1.5",
     "stylelint": "^12.0.0",
     "stylelint-config-standard": "^19.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.9.0",
+    "webpack-node-externals": "^1.7.2"
   }
 }

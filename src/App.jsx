@@ -6,7 +6,7 @@ class App extends Component{
   async componentDidMount(){
     console.log('in mount')
     try {
-      const res = await axios.get('http://localhost:8000/test/');
+      const res = await axios.get('http://localhost:8000/users/test/');
       console.log(res);
     } catch (e) {
       console.log(e);

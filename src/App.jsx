@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core';
 class App extends Component{
   render() {
     return (
-      <div className="App" 
+      <div
             css={css`
             padding: 32px;
             background-color: blue;
@@ -12,7 +12,7 @@ class App extends Component{
             color: white;
           `}
       >
-        <header className="App-header">
+        <header>
           <p>
             Bridge Front End Application.
           </p>

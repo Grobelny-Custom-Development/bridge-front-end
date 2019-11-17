@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BridgeRouter from './BridgeRouter';
+import BridgeRouter from './BridgeRouter.jsx';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<BridgeRouter />, document.getElementById('root'));

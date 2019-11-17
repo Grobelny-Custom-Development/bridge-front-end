@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
-    "build": "webpack --mode production",
+    "build": "webpack --mode development",
     "precommit": "lint-commited",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

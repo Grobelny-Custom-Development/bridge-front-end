@@ -1,32 +1,26 @@
 import React, { Component } from 'react';
 import { css, jsx } from '@emotion/core';
 import axios from 'axios';
+import {
+  Link
+} from "react-router-dom";
 
+const appCss = css`
+padding: 32px;
+background-color: blue;
+font-size: 24px;
+color: white;
+`;
 class App extends Component{
-  async componentDidMount(){
-    console.log('in mount')
-    try {
-      const res = await axios.get('http://localhost:8000/users/test/');
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
-  }
   render() {
     return (
-      <div
-            css={css`
-            padding: 32px;
-            background-color: blue;
-            font-size: 24px;
-            color: white;
-          `}
-      >
-        <header>
+      <div >
+        <header css={appCss}>
           <p>
-            Bridge Front End Application.
+            bridge Front End Application.
           </p>
         </header>
+        <Link to="/meeting/create" > Create Meeting </Link>
       </div>
     );
   }

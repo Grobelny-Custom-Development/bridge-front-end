@@ -14,7 +14,6 @@
   },
   "scripts": {
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
-    // running nodemon resets server whenever changes are made
     "dev:start": "nodemon ./server-build/index.js",
     "dev": "npm-run-all --parallel build dev:*",
     "start": "node ./server-build/index.js --open --mode development",

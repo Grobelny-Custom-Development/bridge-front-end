@@ -24,6 +24,9 @@ const Navigation = (props) => {
             <li>
                 <Link to="/register">Register</Link>
             </li>
+            <li>
+                <Link to="/meeting">Meetings</Link>
+            </li>
             </Fragment>
             }
             { isLoggedIn &&

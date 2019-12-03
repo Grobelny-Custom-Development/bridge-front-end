@@ -1,28 +1,33 @@
 import React, { Component, Fragment } from "react";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
+  Router,
   Route,
+  Switch,
 } from "react-router-dom";
 
+import { createMemoryHistory } from 'history';
+
 import Navigation from './Navigation.jsx';
-import App from './App.jsx';
+import Home from './Home.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
 import Profile from './Profile.jsx';
 
 import MeetingRouter from './meeting/MeetingRouter.jsx';
 
-
 class BridgeRouter extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        isLoggedIn: localStorage.getItem('token')? true : false,
+        isLoggedIn: false,
       }
     }
-    componentDidUpdate({prevState}){
-      console.log('in component didUpdate')
-      const { isPrevLoggedIn } = prevState;
+    componentDidMount(){
+      this.setState({isLoggedIn: localStorage.getItem('token')? true : false})
+    }
+    componentDidUpdate(prevProps, prevState){
+      const { isLoggedIn: isPrevLoggedIn } = prevState;
       const isLoggedInCurrent = localStorage.getItem('token');
 
       if((isLoggedInCurrent && !isPrevLoggedIn) || isLoggedInCurrent !== isPrevLoggedIn){
@@ -31,15 +36,18 @@ class BridgeRouter extends Component {
     }
     render(){
         const { isLoggedIn } = this.state;
+        console.log(this.props)
         return(
-        <Router>
-            <Navigation isLoggedIn={isLoggedIn} />
-            <Route path="/" component={App} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/meeting" component={MeetingRouter} />
-        </Router>
+          <div>
+          {/* // <BrowserRouter> */}
+              <Navigation isLoggedIn={isLoggedIn} />
+              <Route path="/" component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/meeting" component={MeetingRouter} />
+        {/* // </BrowserRouter> */}
+        </div>
         )
     }
 }

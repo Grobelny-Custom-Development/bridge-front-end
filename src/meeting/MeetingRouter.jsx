@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import {
-  BrowserRouter as Router,
   Route,
+  useRouteMatch,
+  Link,
 } from "react-router-dom";
 
 import MeetingCreate from './MeetingCreate.jsx';
 
 
-class MeetingRouter extends Component {
-    render(){
+const MeetingRouter = (props) => {
+      const { path, url} = useRouteMatch();
         return(
         <div>
-            <Route path="/create" component={MeetingCreate} />
+            <Link to={url + "/create"}> Create </Link>
+            <Route path={`${path}/:topicId`} component={MeetingCreate} />
         </div>
         )
-    }
 }
 
 export default MeetingRouter;

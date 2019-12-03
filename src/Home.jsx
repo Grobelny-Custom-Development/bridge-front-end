@@ -11,19 +11,18 @@ background-color: blue;
 font-size: 24px;
 color: white;
 `;
-class App extends Component{
+class Home extends Component{
   render() {
     return (
       <div >
         <header css={appCss}>
           <p>
-            bridge Front End Application.
+            Home Page
           </p>
         </header>
-        <Link to="/meeting/create" > Create Meeting </Link>
       </div>
     );
   }
 }
 
-export default App;
+export default Home;

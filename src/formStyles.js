@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 
-const S = {}
+const S = {};
 
 S.Form = styled.div`
 width: 80%;
@@ -34,7 +34,6 @@ p {
 }
 
 button {
-  margin-left: auto;
   padding: 8px 16px;
   border: none;
   background: #333;

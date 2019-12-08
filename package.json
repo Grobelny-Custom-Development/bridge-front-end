@@ -19,12 +19,20 @@
     "dev": "npm-run-all --parallel build dev:*",
     "start": "node ./server-build/index.js --open --mode development",
     "build": "webpack --mode development",
-    "pre-commit": "lint-staged"
+    "test": "react-scripts test",
+    "test:staged": "cross-env CI=true react-scripts test --coverage --env=jsdom --findRelatedTests",
+    "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{js,jsx}": [
       "stylelint --fix",
       "eslint --fix",
+      "npm run test:staged",
       "git add"
     ]
   },

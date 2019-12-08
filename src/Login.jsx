@@ -1,20 +1,20 @@
 
 
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
-import { css, jsx } from '@emotion/core';
-import S from './styles.jsx'
-// import PropTypes from 'prop-types';
+import S from './formStyles.js'
+import PropTypes from 'prop-types';
 
 
 
 
-const Login = ({setToken}) => {
+const Login = ({ setToken }) => {
     // React Hooks declaration
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleLogin = (event) => {
         event.preventDefault();
+        console.log('in login')
         axios({
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
@@ -25,8 +25,8 @@ const Login = ({setToken}) => {
           })
         .then(({data}) => {
             const { token } = data;
-            localStorage.setItem('token', token);
             setToken(token);
+            window.location.href = "/";
         })
         .catch((error) => {
             console.log(error)
@@ -34,7 +34,7 @@ const Login = ({setToken}) => {
     }
     return(
         <S.Form>
-        <h1> Login View</h1>
+        <h1> Login </h1>
         <form onSubmit={handleLogin}>
             <S.UlElement>
                 <S.ListElement>
@@ -66,6 +66,6 @@ const Login = ({setToken}) => {
 
 export default Login;
 
-// SignupForm.propTypes = {
-//     handle_signup: PropTypes.func.isRequired
-//   };
+Login.propTypes = {
+    setToken: PropTypes.func
+};

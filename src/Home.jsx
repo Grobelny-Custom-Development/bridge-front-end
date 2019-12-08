@@ -1,21 +1,9 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import {
-  Link
-} from "react-router-dom";
+import React from 'react';
 
-class Home extends Component{
-  render() {
-    return (
-      <div >
-        <header>
-          <p>
-            Welcome to Bridge!
-          </p>
-        </header>
-      </div>
-    );
-  }
-}
+const Home = () => (
+  <header>
+  Welcome to Bridge!
+  </header>
+);
 
 export default Home;

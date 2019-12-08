@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import S from './styles.jsx';
+import S from './formStyles.js';
 
 const Register = () => {
   // React Hooks declaration
@@ -48,7 +48,7 @@ const Register = () => {
           <input
             type="email"
             name="email"
-            value={dateOfBirth}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </S.ListElement>

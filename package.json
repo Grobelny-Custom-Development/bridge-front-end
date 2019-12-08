@@ -20,8 +20,8 @@
     "start": "node ./server-build/index.js --open --mode development",
     "build": "webpack --mode development",
     "precommit": "lint-staged",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    // "test": "react-scripts test",
+    // "eject": "react-scripts eject"
   },
   "lint-staged": {
     "*.{js,jsx}": [

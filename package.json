@@ -19,7 +19,7 @@
     "dev": "npm-run-all --parallel build dev:*",
     "start": "node ./server-build/index.js --open --mode development",
     "build": "webpack --mode development",
-    "precommit": "lint-staged"
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx}": [

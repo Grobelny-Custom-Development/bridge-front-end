@@ -5,9 +5,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-
-import { createMemoryHistory } from 'history';
-
+import { Global, css, jsx } from '@emotion/core';
 import Navigation from './Navigation.jsx';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
@@ -16,38 +14,47 @@ import Profile from './Profile.jsx';
 
 import MeetingRouter from './meeting/MeetingRouter.jsx';
 
+
+const globalCSS = css`
+body{
+  font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+  background: #3AAFAB;
+  color: #fff;
+  padding: 50px 0;
+}
+`;
+
 class BridgeRouter extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        isLoggedIn: false,
+        token: null,
       }
     }
     componentDidMount(){
-      this.setState({isLoggedIn: localStorage.getItem('token')? true : false})
+      this.setState({token: localStorage.getItem('token')? true : false})
     }
-    componentDidUpdate(prevProps, prevState){
-      const { isLoggedIn: isPrevLoggedIn } = prevState;
-      const isLoggedInCurrent = localStorage.getItem('token');
 
-      if((isLoggedInCurrent && !isPrevLoggedIn) || isLoggedInCurrent !== isPrevLoggedIn){
-        this.setState({ isLoggedIn: isLoggedInCurrent});
-      }
+    setToken = (token) => {
+      this.setState({token})
     }
     render(){
-        const { isLoggedIn } = this.state;
-        console.log(this.props)
+        const { token } = this.state;
+        const { isLoggedIn } = (token) ? true : false;
         return(
-          <div>
+          <Fragment>
           {/* // <BrowserRouter> */}
+              <Global styles={globalCSS} />
               <Navigation isLoggedIn={isLoggedIn} />
-              <Route path="/" component={Home} />
-              <Route path="/login" component={Login} />
+              <div css={globalCSS}>
+              <Route exact path="/" component={Home} />
+              <Route path="/login" component={ () => <Login setToken={this.setToken} />} />
               <Route path="/register" component={Register} />
               <Route path="/profile" component={Profile} />
               <Route path="/meeting" component={MeetingRouter} />
+              </div>
         {/* // </BrowserRouter> */}
-        </div>
+        </Fragment>
         )
     }
 }

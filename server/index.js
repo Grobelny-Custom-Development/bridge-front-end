@@ -5,8 +5,8 @@ import React from 'react';
 import express from 'express';
 import ReactDOMServer from 'react-dom/server';
 
+import { StaticRouter } from 'react-router-dom';
 import BridgeRouter from '../src/BridgeRouter.jsx';
-import { StaticRouter } from "react-router-dom";
 
 const PORT = process.env.PORT || 3006;
 const app = express();
@@ -17,9 +17,9 @@ app.get('/*', (req, res) => {
   // const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
   const context = {};
   const app = ReactDOMServer.renderToString(
-  <StaticRouter location={req.url} context={context}>
-    <BridgeRouter />
-  </StaticRouter>
+    <StaticRouter location={req.url} context={context}>
+      <BridgeRouter />
+    </StaticRouter>,
   );
 
   const indexFile = path.resolve('./src/index.html');
@@ -30,7 +30,7 @@ app.get('/*', (req, res) => {
     }
 
     return res.send(
-      data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+      data.replace('<div id="root"></div>', `<div id="root">${app}</div>`),
     );
   });
 });

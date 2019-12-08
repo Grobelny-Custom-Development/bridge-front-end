@@ -2,8 +2,14 @@
 
 import React, { useState, Fragment } from "react";
 import axios from 'axios';
+import { css, jsx } from '@emotion/core';
+import S from './styles.jsx'
+// import PropTypes from 'prop-types';
 
-const Login = () => {
+
+
+
+const Login = ({setToken}) => {
     // React Hooks declaration
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,33 +25,47 @@ const Login = () => {
           })
         .then(({data}) => {
             const { token } = data;
-            console.log(token)
             localStorage.setItem('token', token);
+            setToken(token);
         })
         .catch((error) => {
             console.log(error)
         });
     }
     return(
-        <Fragment>
+        <S.Form>
         <h1> Login View</h1>
         <form onSubmit={handleLogin}>
-            <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)} 
-            />
-            <input
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit"> Login </button>
+            <S.UlElement>
+                <S.ListElement>
+                <label htmlFor="email">Email</label>
+                <input
+                type="text"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)} 
+                />
+                </S.ListElement>
+                <S.ListElement>
+                <label htmlFor="password">Password</label>
+                <input
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+                </S.ListElement>
+                <S.ListElement>
+                <button type="submit"> Login </button>
+                </S.ListElement>
+            </S.UlElement>
         </form>
-        </Fragment>
+        </S.Form>
     )
 
 }
 
 export default Login;
+
+// SignupForm.propTypes = {
+//     handle_signup: PropTypes.func.isRequired
+//   };

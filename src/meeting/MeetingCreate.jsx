@@ -12,28 +12,34 @@ const MeetingCreate = ({ match }) => {
 
         const createMeeting = (event) => {
             event.preventDefault();
+            console.log('create meeting')
+            const token = localStorage.getItem('token');
+            console.log('auth token')
             axios({
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
+                  Authorization: `JWT ${token}`
                 },
-                url: 'http://localhost:8000/meetings/create/',
+                url: 'http://localhost:8000/meetings/structure/create/',
                 method: 'POST',
-                data: { email, password },
+                data: { 
+                    name: meetingName, 
+                    public: isPublic, 
+                    start_date: startDate, 
+                    interval 
+                },
               })
             .then(({data}) => {
-                const { token } = data;
-                console.log(token)
-                localStorage.setItem('token', token);
+                console.log(data)
             })
             .catch((error) => {
                 console.log(error)
             });
         }
-        console.log(isPublic)
         return(
             <Fragment>
             <h2> Meeting Creation </h2>
-            <form onSubmit={createMeeting}>
+            {/* <form onSubmit={createMeeting}> */}
                 <input
                 type="text"
                 name="meeting-name"
@@ -52,8 +58,8 @@ const MeetingCreate = ({ match }) => {
                 </select>
                 }
 
-                <button type="submit"> Create</button>
-            </form>
+                <button type="button" onClick={e => createMeeting(e)}> Create</button>
+            {/* </form> */}
             </Fragment>
 
         )

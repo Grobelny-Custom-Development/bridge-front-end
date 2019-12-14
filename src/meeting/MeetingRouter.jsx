@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import {
   Route,
   useRouteMatch,
-  Link,
 } from "react-router-dom";
 
 import MeetingCreate from './MeetingCreate.jsx';
+import MeetingMenu from './MeetingMenu.jsx'
 
 
 const MeetingRouter = (props) => {
       const { path, url} = useRouteMatch();
+      const { match } = props;
+      console.log(props)
+      console.log(match.url)
         return(
         <div>
-            <Link to={url + "/create"}> Create </Link>
-            <Route path={`${path}/:topicId`} component={MeetingCreate} />
+            <Route path={`${path}/create`} component={MeetingCreate} />
         </div>
         )
 }

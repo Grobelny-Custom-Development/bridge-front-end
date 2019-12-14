@@ -6,13 +6,14 @@ import {
   Switch,
 } from "react-router-dom";
 import { Global, css, jsx } from '@emotion/core';
-import Navigation from './Navigation.jsx';
+import Navigation from './navigation/Navigation.jsx';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
 import Profile from './Profile.jsx';
 
 import MeetingRouter from './meeting/MeetingRouter.jsx';
+import MeetingMenu from './meeting/MeetingMenu.jsx';
 
 
 const globalCSS = css`
@@ -22,6 +23,14 @@ body{
   color: #fff;
 }
 `;
+
+
+const pageCss =  css`
+width: 80%;
+max-width: 1200px;
+margin: 0 auto;
+`;
+
 
 class BridgeRouter extends Component {
   constructor(props) {
@@ -45,13 +54,16 @@ class BridgeRouter extends Component {
           <Fragment>
           {/* // <BrowserRouter> */}
               <Global styles={globalCSS} />
-              <Navigation isLoggedIn={isLoggedIn} />
-
+              <Navigation isLoggedIn={isLoggedIn} setToken={this.setToken} />
+              <div css={pageCss}>
               <Route exact path="/" component={Home} />
               <Route path="/login" component={ () => <Login setToken={this.setToken} />} />
               <Route path="/register" component={Register} />
               <Route path="/profile" component={Profile} />
-              <Route path="/meeting" component={MeetingRouter} />
+              <Route exact path="/meeting" component={MeetingMenu} />
+              <Route path="/meeting/:category?" component={MeetingRouter} />
+              </div>
+
 
         {/* // </BrowserRouter> */}
         </Fragment>

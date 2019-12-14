@@ -1,8 +1,9 @@
 import React, { useState, Fragment } from "react";
 import axios from 'axios';
+import S from '../formStyles.js'
 
 
-const MeetingCreate = ({ match }) => {
+const MeetingCreate = ({ match, history }) => {
         // React Hooks declaration
         const [meetingName, setMeetingName] = useState("");
         const [isPublic, setPublic] = useState(false);
@@ -12,9 +13,9 @@ const MeetingCreate = ({ match }) => {
 
         const createMeeting = (event) => {
             event.preventDefault();
-            console.log('create meeting')
+            console.log('create meeting');
             const token = localStorage.getItem('token');
-            console.log('auth token')
+            console.log('auth token');
             axios({
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -30,36 +31,89 @@ const MeetingCreate = ({ match }) => {
                 },
               })
             .then(({data}) => {
-                console.log(data)
+                console.log(data);
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
             });
         }
         return(
             <Fragment>
             <h2> Meeting Creation </h2>
-            {/* <form onSubmit={createMeeting}> */}
+            <form onSubmit={createMeeting}>
+            <S.ListElement>
+                <label htmlFor="meeting-name">Meeting Name</label>
                 <input
-                type="text"
-                name="meeting-name"
-                value={meetingName}
-                onChange={(e) => setMeetingName(e.target.value)} 
-                /> <br />
-                <input type="checkbox" name="public" onChange={(e) => setPublic(!e.target.checked)} /> Public <br />
-                <input type="date" name="start-date" onChange={ (e) => setStartDate(e.target.value)} value={startDate} /> Start Date <br />
-                <input type="checkbox" name="recurring" onChange={ (e) => setRecurring(!e.target.checked)} /> Recurring <br />
-                { !isRecurring &&
+                    type="text"
+                    name="meeting-name"
+                    value={meetingName}
+                    onChange={(e) => setMeetingName(e.target.value)} 
+                />
+            </S.ListElement>
+            <S.ListElement>
+                <label htmlFor="public">Public ?</label>
+                <S.FlexList>
+                    <li>
+                        <label htmlFor="yes"> Yes </label>
+                        <input
+                        type="checkbox"
+                        id="yes"
+                        onChange={(e) => setPublic(true)} 
+                        />
+                    </li>
+                    <li>
+                        <label htmlFor="no"> No </label>
+                        <input
+                        type="checkbox"
+                        id="no"
+                        onChange={(e) => setPublic(false)} 
+                        />
+                    </li>
+                </S.FlexList>
+            </S.ListElement>
+            <S.ListElement>
+                <label htmlFor="date">Start Date </label>
+                <input
+                    type="date"
+                    name="start-date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)} 
+                />
+            </S.ListElement>
+            <S.ListElement>
+                <label htmlFor="recurring">Recurring ?</label>
+                <S.FlexList>
+                    <li>
+                        <label htmlFor="yes"> Yes </label>
+                        <input
+                        type="checkbox"
+                        id="yes"
+                        onChange={(e) => setRecurring(true)} 
+                        />
+                    </li>
+                    <li>
+                        <label htmlFor="no"> No </label>
+                        <input
+                        type="checkbox"
+                        id="no"
+                        onChange={(e) => setRecurring(false)} 
+                        />
+                    </li>
+                </S.FlexList>
+            </S.ListElement>
+            <S.ListElement>
+                <label htmlFor="Interval">How Often? </label>
                 <select onChange={(e) => setInterval(e.target.value)}>
-                    <option value="Daily">Daily</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Yearly">Yearly</option>
+                    <option value="Day">Daily</option>
+                    <option value="Month">Monthly</option>
+                    <option value="Week">Weekly</option>
+                    <option value="Year">Yearly</option>
                 </select>
-                }
-
-                <button type="button" onClick={e => createMeeting(e)}> Create</button>
-            {/* </form> */}
+            </S.ListElement>
+            <S.ListElement>
+                <button type="submit"> Register </button>
+            </S.ListElement>
+            </form>
             </Fragment>
 
         )

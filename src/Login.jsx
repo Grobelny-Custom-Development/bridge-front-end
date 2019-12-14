@@ -1,11 +1,7 @@
-
-
-import React, { useState } from "react";
 import axios from 'axios';
-import S from './formStyles.js'
 import PropTypes from 'prop-types';
-
-
+import React, { Fragment, useState } from "react";
+import S from './formStyles.js'
 
 
 const Login = ({ setToken }) => {
@@ -33,7 +29,7 @@ const Login = ({ setToken }) => {
         });
     }
     return(
-        <S.Form>
+        <Fragment>
         <h1> Login </h1>
         <form onSubmit={handleLogin}>
             <S.UlElement>
@@ -59,7 +55,7 @@ const Login = ({ setToken }) => {
                 </S.ListElement>
             </S.UlElement>
         </form>
-        </S.Form>
+        </Fragment>
     )
 
 }

@@ -2,14 +2,16 @@ import React from "react";
 import {
     Link
   } from "react-router-dom";
+import PropTypes from 'prop-types';
 import S from "./navStyles.js";
 
-const LoggedInNav = () => {
+
+const LoggedInNav = ({ setToken }) => {
     const logout = () => {
-        localStorage.removeItem('token')
+        setToken(null);
     }
     return(
-        <S.NavLink>
+        <S.Ul>
             <li>
                 <Link to="/">Home</Link>
             </li>
@@ -22,9 +24,13 @@ const LoggedInNav = () => {
             <li>
                 <Link to="/" onClick={logout}> Logout</Link>
             </li>
-        </S.NavLink>
+        </S.Ul>
     )
-
-}
+  
+  }
 
 export default LoggedInNav;
+
+LoggedInNav.propTypes = {
+    setToken: PropTypes.func.isRequired,
+};

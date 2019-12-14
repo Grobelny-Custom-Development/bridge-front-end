@@ -1,18 +1,20 @@
 import React from "react";
 import LoggedInNav from "./LoggedInNav.jsx";
-import LoggedOutNav from "./LoggedInNav.jsx";
+import LoggedOutNav from "./LoggedOutNav.jsx";
 import S from "./navStyles.js";
 
 
-const Navigation = ({ isLoggedIn }) => {
+const Navigation = ({ isLoggedIn, setToken }) => {
     return(
         <S.Nav>
+            <React.StrictMode>
             { !isLoggedIn &&
                 <LoggedOutNav />
             }
             { isLoggedIn &&
-                <LoggedInNav />
+                <LoggedInNav setToken={setToken} />
             }
+            </React.StrictMode>
         </S.Nav>
     )
 }

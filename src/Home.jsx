@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home = () => (
   <header>
-  Welcome to Bridge!
+  <h1>Welcome to Bridge!</h1>
   </header>
 );
 

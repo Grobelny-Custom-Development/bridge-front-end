@@ -9,7 +9,6 @@ const Login = ({ setToken }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleLogin = (event) => {
-        event.preventDefault();
         axios({
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
@@ -30,7 +29,7 @@ const Login = ({ setToken }) => {
     return(
         <Fragment>
         <h1> Login </h1>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={ (e) =>{ e.preventDefault(); handleLogin(e);}}>
             <S.UlElement>
                 <S.ListElement>
                 <label htmlFor="email">Email</label>

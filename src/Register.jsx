@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import axios from 'axios';
 import S from './formStyles.js';
 
-const Register = () => {
+const Register = ({ setToken }) => {
   // React Hooks declaration
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -12,8 +12,6 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
   const createUser = (event) => {
-    console.log('create meeting');
-    console.log('auth token');
     event.preventDefault();
     axios({
         headers: {
@@ -30,7 +28,9 @@ const Register = () => {
         },
       })
     .then(({data}) => {
-        console.log(data);
+        const { token } = data;
+        setToken(token);
+        window.location.href = "/";
     })
     .catch((error) => {
         console.log(error);

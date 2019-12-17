@@ -10,7 +10,6 @@ const Login = ({ setToken }) => {
     const [password, setPassword] = useState("");
     const handleLogin = (event) => {
         event.preventDefault();
-        console.log('in login')
         axios({
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
@@ -45,6 +44,7 @@ const Login = ({ setToken }) => {
                 <S.ListElement>
                 <label htmlFor="password">Password</label>
                 <input
+                type="password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

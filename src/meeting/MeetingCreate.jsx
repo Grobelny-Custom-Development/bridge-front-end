@@ -13,9 +13,7 @@ const MeetingCreate = ({ match, history }) => {
 
         const createMeeting = (event) => {
             event.preventDefault();
-            console.log('create meeting');
             const token = localStorage.getItem('token');
-            console.log('auth token');
             axios({
                 headers: {
                   'X-Requested-With': 'XMLHttpRequest',
@@ -27,7 +25,8 @@ const MeetingCreate = ({ match, history }) => {
                     name: meetingName, 
                     public: isPublic, 
                     start_date: startDate, 
-                    interval 
+                    interval,
+                    recurring: isRecurring, 
                 },
               })
             .then(({data}) => {
@@ -111,7 +110,7 @@ const MeetingCreate = ({ match, history }) => {
                 </select>
             </S.ListElement>
             <S.ListElement>
-                <button type="submit"> Register </button>
+                <button type="submit"> Create </button>
             </S.ListElement>
             </form>
             </Fragment>

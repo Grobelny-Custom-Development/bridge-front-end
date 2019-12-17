@@ -5,17 +5,19 @@ import {
 } from "react-router-dom";
 
 import MeetingCreate from './MeetingCreate.jsx';
-import MeetingMenu from './MeetingMenu.jsx'
+import MeetingActive from './MeetingActive.jsx'
+import MeetingBrainstorm from './MeetingBrainstorm.jsx'
 
 
-const MeetingRouter = (props) => {
-      const { path, url} = useRouteMatch();
-      const { match } = props;
-      console.log(props)
-      console.log(match.url)
+const MeetingRouter = ({match}) => {
+      const { path } = useRouteMatch();
+      const { params } = match;
+      //params: {category: "active"}
         return(
         <div>
             <Route path={`${path}/create`} component={MeetingCreate} />
+            <Route path={`${path}/active`} component={MeetingActive} />
+            <Route path={`${path}/activity/brainstorm/:meetingID`} component={MeetingBrainstorm} />
         </div>
         )
 }

@@ -9,10 +9,10 @@ import {
 
 const MeetingMenu = () => {
       const { url } = useRouteMatch();
-      console.log(url)
         return(
         <div>
             <p><Link to={url + "/create"}> Host a meeting </Link></p>
+            <p><Link to={url + "/active"}> Active Meetings </Link></p>
             <p><Link to={url + "/company"}> Company Meetings </Link></p>
             <p><Link to={url + "/public"}> Public Meetings </Link></p>
             <p><Link to={url + "/participant"}> Meetings I've participated in </Link></p>

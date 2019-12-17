@@ -58,10 +58,10 @@ class BridgeRouter extends Component {
               <div css={pageCss}>
               <Route exact path="/" component={Home} />
               <Route path="/login" component={ () => <Login setToken={this.setToken} />} />
-              <Route path="/register" component={Register} />
+              <Route path="/register" component={() => <Register setToken={this.setToken} />} />
               <Route path="/profile" component={Profile} />
               <Route exact path="/meeting" component={MeetingMenu} />
-              <Route path="/meeting/:category?" component={MeetingRouter} />
+              <Route path="/meeting/:category?/:meetingActivity?/:meetingID?" component={MeetingRouter} />
               </div>
 
 

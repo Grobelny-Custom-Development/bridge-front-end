@@ -12,9 +12,7 @@ const Register = ({ setToken }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const createUser = (event) => {
-    console.log('in create user');
-    event.preventDefault();
+  const createUser = () => {
     const registerUrl = `${API_URL}/users/register/`;
     const postData = new FormData();
     postData.append('first_name', firstName);
@@ -43,7 +41,6 @@ const Register = ({ setToken }) => {
   return (
     <Fragment>
       <h1> Registration </h1>
-      <form onSubmit={createUser}>
         <S.ListElement>
           <label htmlFor="first-name">First Name</label>
           <input
@@ -99,9 +96,8 @@ const Register = ({ setToken }) => {
           />
         </S.ListElement>
         <S.ListElement>
-          <button type="submit"> Register </button>
+          <button onClick={ () => createUser()}> Register </button>
         </S.ListElement>
-      </form>
     </Fragment>
   );
 };

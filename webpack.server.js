@@ -3,9 +3,9 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG']);
-
+console.log(process.env.NODE_ENV)
 const apiVariables = new webpack.DefinePlugin({
-  API_URL: (process.env.NODE_ENV === 'production')? JSON.stringify('https://bridge-api-dev.herokuapp.com/') : JSON.stringify('http://localhost:8000'),
+  API_URL: JSON.stringify('https://bridge-api-dev.herokuapp.com/'),
 });
 
 

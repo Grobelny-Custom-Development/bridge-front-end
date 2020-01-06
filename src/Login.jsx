@@ -33,7 +33,6 @@ const Login = ({ setToken }) => {
     return(
         <Fragment>
         <h1> Login </h1>
-        {/* <form onSubmit={ (e) =>{ e.preventDefault(); handleLogin(e);}}> */}
             <S.UlElement>
                 <S.ListElement>
                 <label htmlFor="email">Email</label>
@@ -57,7 +56,6 @@ const Login = ({ setToken }) => {
                 <button onClick={ () => handleLogin()}> Login </button>
                 </S.ListElement>
             </S.UlElement>
-        {/* </form> */}
         </Fragment>
     )
 

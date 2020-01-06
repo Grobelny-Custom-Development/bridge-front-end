@@ -19,9 +19,8 @@ import MeetingMenu from './meeting/MeetingMenu.jsx';
 const globalCSS = css`
 body{
   font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
-  background: #3AAFAB;
-  color: #fff;
-}
+  background: #f4f4f4;
+  color: #0e8afc;
 `;
 
 
@@ -40,20 +39,30 @@ class BridgeRouter extends Component {
       }
     }
     componentDidMount(){
+      console.log('in mount')
       this.setState({token: localStorage.getItem('token')})
+    }
+    componentDidUpdate(){
+      console.log('update')
     }
 
     setToken = token => {
-      localStorage.setItem('token', token);
+      if(token){
+        localStorage.setItem('token', token);
+      }
+      else{
+        localStorage.removeItem('token');
+      }
+
       this.setState({token})
     }
     render(){
         const { token } = this.state;
+        console.log(token)
         const isLoggedIn = (token) ? true : false;
         return(
           <Fragment>
-          {/* // <BrowserRouter> */}
-              <Global styles={globalCSS} />
+            <Global styles={globalCSS} />
               <Navigation isLoggedIn={isLoggedIn} setToken={this.setToken} />
               <div css={pageCss}>
               <Route exact path="/" component={Home} />
@@ -63,10 +72,7 @@ class BridgeRouter extends Component {
               <Route exact path="/meeting" component={MeetingMenu} />
               <Route path="/meeting/:category?/:meetingActivity?/:meetingID?" component={MeetingRouter} />
               </div>
-
-
-        {/* // </BrowserRouter> */}
-        </Fragment>
+          </Fragment>
         )
     }
 }

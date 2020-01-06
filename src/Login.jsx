@@ -8,14 +8,18 @@ const Login = ({ setToken }) => {
     // React Hooks declaration
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleLogin = (event) => {
+    const handleLogin = () => {
+        const loginUrl = `${API_URL}/users/token-auth/`;
+        const postData = new FormData();
+        postData.append('email', email);
+        postData.append('password', password);
         axios({
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
             },
-            url: 'http://localhost:8000/users/token-auth/',
+            url: loginUrl,
             method: 'POST',
-            data: { email, password },
+            data: postData,
           })
         .then(({data}) => {
             const { token } = data;
@@ -29,7 +33,7 @@ const Login = ({ setToken }) => {
     return(
         <Fragment>
         <h1> Login </h1>
-        <form onSubmit={ (e) =>{ e.preventDefault(); handleLogin(e);}}>
+        {/* <form onSubmit={ (e) =>{ e.preventDefault(); handleLogin(e);}}> */}
             <S.UlElement>
                 <S.ListElement>
                 <label htmlFor="email">Email</label>
@@ -50,10 +54,10 @@ const Login = ({ setToken }) => {
                 />
                 </S.ListElement>
                 <S.ListElement>
-                <button type="submit"> Login </button>
+                <button onClick={ () => handleLogin()}> Login </button>
                 </S.ListElement>
             </S.UlElement>
-        </form>
+        {/* </form> */}
         </Fragment>
     )
 

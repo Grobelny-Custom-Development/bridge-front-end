@@ -12,11 +12,8 @@ const MeetingMenu = () => {
         return(
         <div>
             <p><Link to={url + "/create"}> Host a meeting </Link></p>
-            <p><Link to={url + "/active"}> Active Meetings </Link></p>
-            <p><Link to={url + "/company"}> Company Meetings </Link></p>
-            <p><Link to={url + "/public"}> Public Meetings </Link></p>
-            <p><Link to={url + "/participant"}> Meetings I've participated in </Link></p>
-            <p><Link to={url + "/hosted"}> Meetings I've hosted </Link></p>
+            <p><Link to={url + "/active"}> Your Meetings </Link></p>
+            <p><Link to={url + "/template"}> Trending Templates </Link></p>
         </div>
         )
 }

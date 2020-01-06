@@ -21,7 +21,7 @@
     "dev:build": "webpack --mode development",
     "dev": "npm-run-all --parallel build dev:*",
     "start": "node ./server-build/index.js",
-    "build": "webpack --config webpack.server.js",
+    "build": "webpack --config webpack.server.js --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

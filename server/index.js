@@ -13,7 +13,7 @@ const app = express();
 
 app.use(express.static('./dist'));
 
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   // const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
   const context = {};
   const app = ReactDOMServer.renderToString(

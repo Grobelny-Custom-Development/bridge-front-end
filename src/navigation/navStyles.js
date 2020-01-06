@@ -20,7 +20,6 @@ li a {
       display: inline-block;
       padding: 10px 15px;
       text-decoration: none;
-      color: white;
 }
 `;
 

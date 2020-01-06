@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import axios from 'axios';
 import S from './formStyles.js';
+import { create } from 'domain';
 
 const Register = ({ setToken }) => {
   // React Hooks declaration
@@ -12,20 +13,22 @@ const Register = ({ setToken }) => {
   const [password, setPassword] = useState('');
 
   const createUser = (event) => {
+    console.log('in create user');
     event.preventDefault();
+    const registerUrl = `${API_URL}/users/register/`;
+    const postData = new FormData();
+    postData.append('first_name', firstName);
+    postData.append('last_name', lastName);
+    postData.append('date_of_birth', dateOfBirth);
+    postData.append('email', email);
+    postData.append('password', password);
     axios({
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
         },
-        url: 'http://localhost:8000/users/register/',
+        url: registerUrl,
         method: 'POST',
-        data: { 
-            first_name: firstName, 
-            last_name: lastName, 
-            date_of_birth: dateOfBirth, 
-            email,
-            password
-        },
+        data: postData,
       })
     .then(({data}) => {
         const { token } = data;
@@ -36,7 +39,7 @@ const Register = ({ setToken }) => {
         console.log(error);
     });
 }
-
+  console.log(`${API_URL}/users/register/`)
   return (
     <Fragment>
       <h1> Registration </h1>

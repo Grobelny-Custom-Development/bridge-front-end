@@ -15,11 +15,9 @@ const MeetingRouter = ({match}) => {
       //params: {category: "active"}
         return(
         <div>
-            <React.StrictMode>
               <Route path={`${path}/create`} component={MeetingCreate} />
               <Route path={`${path}/active`} component={MeetingActive} />
               <Route path={`${path}/activity/brainstorm/:meetingID`} component={MeetingBrainstorm} />
-            </React.StrictMode>
         </div>
         )
 }

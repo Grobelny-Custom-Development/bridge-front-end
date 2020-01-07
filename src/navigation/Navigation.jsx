@@ -7,14 +7,12 @@ import S from "./navStyles.js";
 const Navigation = ({ isLoggedIn, setToken }) => {
     return(
         <S.Nav>
-            <React.StrictMode>
             { !isLoggedIn &&
                 <LoggedOutNav />
             }
             { isLoggedIn &&
                 <LoggedInNav setToken={setToken} />
             }
-            </React.StrictMode>
         </S.Nav>
     )
 }

@@ -9,6 +9,8 @@ const Login = ({ setToken }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleLogin = () => {
+        console.log('click login')
+        console.log(API_URL)
         const loginUrl = `${API_URL}/users/token-auth/`;
         const postData = new FormData();
         postData.append('email', email);

@@ -11,9 +11,7 @@ import BridgeRouter from '../src/BridgeRouter.jsx';
 const PORT = process.env.PORT || 3006;
 const app = express();
 
-app.use(express.static('./dist'));
-
-app.get('*', (req, res) => {
+const renderApp = (req,res) => {
   // const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
   const context = {};
   const app = ReactDOMServer.renderToString(
@@ -21,6 +19,8 @@ app.get('*', (req, res) => {
       <BridgeRouter />
     </StaticRouter>,
   );
+
+  console.log(app)
 
   const indexFile = path.resolve('./src/index.html');
   fs.readFile(indexFile, 'utf8', (err, data) => {
@@ -33,6 +33,12 @@ app.get('*', (req, res) => {
       data.replace('<div id="root"></div>', `<div id="root">${app}</div>`),
     );
   });
+}
+
+app.use(express.static('./dist'));
+
+app.get('/', (req, res) => {
+renderApp(req, res);
 });
 
 app.listen(PORT, () => {

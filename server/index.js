@@ -20,8 +20,6 @@ const renderApp = (req,res) => {
     </StaticRouter>,
   );
 
-  console.log(app)
-
   const indexFile = path.resolve('./src/index.html');
   fs.readFile(indexFile, 'utf8', (err, data) => {
     if (err) {

@@ -39,11 +39,11 @@ class BridgeRouter extends Component {
       }
     }
     componentDidMount(){
-      console.log('in mount')
       this.setState({token: localStorage.getItem('token')})
     }
     componentDidUpdate(){
-      console.log('update')
+      console.log('update');
+
     }
 
     setToken = token => {
@@ -61,7 +61,7 @@ class BridgeRouter extends Component {
         console.log(token)
         const isLoggedIn = (token) ? true : false;
         return(
-          <Fragment>
+          <BrowserRouter>
             <Global styles={globalCSS} />
               <Navigation isLoggedIn={isLoggedIn} setToken={this.setToken} />
               <div css={pageCss}>
@@ -72,7 +72,7 @@ class BridgeRouter extends Component {
               <Route exact path="/meeting" component={MeetingMenu} />
               <Route path="/meeting/:category?/:meetingActivity?/:meetingID?" component={MeetingRouter} />
               </div>
-          </Fragment>
+          </BrowserRouter>
         )
     }
 }

@@ -32,6 +32,7 @@ const Login = ({ setToken }) => {
             console.log(error)
         });
     }
+    console.log('in login component')
     return(
         <Fragment>
         <h1> Login </h1>

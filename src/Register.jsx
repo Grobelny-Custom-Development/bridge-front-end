@@ -23,7 +23,7 @@ const Register = ({ setToken }) => {
     axios({
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-        },
+        }, 
         url: registerUrl,
         method: 'POST',
         data: postData,

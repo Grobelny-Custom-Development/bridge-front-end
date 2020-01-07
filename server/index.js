@@ -3,6 +3,8 @@ import fs from 'fs';
 
 import React from 'react';
 import express from 'express';
+import { matchRoutes, renderRoutes } from 'react-router-config';
+import Routes from '../src/Routes.js'
 import ReactDOMServer from 'react-dom/server';
 
 import { StaticRouter } from 'react-router-dom';
@@ -13,10 +15,13 @@ const app = express();
 
 const renderApp = (req,res) => {
   // const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
+  const routes = matchRoutes(Routes, req.path);
   const context = {};
+  console.log(req.path)
   const app = ReactDOMServer.renderToString(
-    <StaticRouter location={req.url} context={context}>
+    <StaticRouter location={req.path} context={context}>
       <BridgeRouter />
+      {/* <div>{renderRoutes(Routes)}</div> */}
     </StaticRouter>,
   );
 
@@ -35,7 +40,7 @@ const renderApp = (req,res) => {
 
 app.use(express.static('./dist'));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
 renderApp(req, res);
 });
 

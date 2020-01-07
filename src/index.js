@@ -7,6 +7,7 @@ import {
 import BridgeRouter from './BridgeRouter.jsx';
 import * as serviceWorker from './serviceWorker';
 
+console.log('in hydrate')
 ReactDOM.hydrate(
   <BrowserRouter>
     <BridgeRouter />

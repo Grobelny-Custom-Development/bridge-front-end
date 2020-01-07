@@ -35,7 +35,7 @@ const renderApp = (req,res) => {
 
 app.use(express.static('./dist'));
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
 renderApp(req, res);
 });
 

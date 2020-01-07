@@ -58,10 +58,9 @@ class BridgeRouter extends Component {
     }
     render(){
         const { token } = this.state;
-        console.log(token)
         const isLoggedIn = (token) ? true : false;
         return(
-          <BrowserRouter>
+          <Fragment>
             <Global styles={globalCSS} />
               <Navigation isLoggedIn={isLoggedIn} setToken={this.setToken} />
               <div css={pageCss}>
@@ -72,7 +71,7 @@ class BridgeRouter extends Component {
               <Route exact path="/meeting" component={MeetingMenu} />
               <Route path="/meeting/:category?/:meetingActivity?/:meetingID?" component={MeetingRouter} />
               </div>
-          </BrowserRouter>
+          </Fragment>
         )
     }
 }

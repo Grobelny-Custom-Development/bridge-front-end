@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
 
@@ -20,21 +19,6 @@ const config = {
     chunkModules: true,
     modules: true,
     children: true
-  },
-  optimization: {
-    minimizer: [
-      // we specify a custom UglifyJsPlugin here to get source maps in production
-      new UglifyJSPlugin({
-        cache: true,
-        parallel: true,
-        uglifyOptions: {
-          compress: false,
-          ecma: 6,
-          mangle: true
-        },
-        sourceMap: false
-      })
-    ]
   },
   entry: './src/client/index.js',
   plugins: [

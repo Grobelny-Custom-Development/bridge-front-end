@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -24,10 +25,14 @@ const config = {
     minimizer: [new UglifyJsPlugin()],
   },
   entry: './src/client/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public')
+  },
   plugins: [
     new webpack.DefinePlugin({
       'API_URL': API_URL['production']
-  }),
+  })
   ],
 };
 

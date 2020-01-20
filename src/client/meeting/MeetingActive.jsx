@@ -49,7 +49,7 @@ class MeetingActive extends Component{
               'X-Requested-With': 'XMLHttpRequest',
               Authorization: `JWT ${token}`
             },
-            url: 'http://localhost:8000/meetings/active/',
+            url: `${API_URL}/meetings/active/`,
             method: 'GET',
           })
         .then(({data}) => {
@@ -63,7 +63,6 @@ class MeetingActive extends Component{
 
 
     render(){
-        console.log('in meeting active')
         const { activeMeetings } = this.state;
         return(
             <Fragment>

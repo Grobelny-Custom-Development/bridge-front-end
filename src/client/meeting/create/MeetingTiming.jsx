@@ -5,8 +5,6 @@ import S from '../../formStyles.js'
 const MeetingTiming = (props) => {
 
     const { startDate, setStartDate, isPublic, setPublic, isRecurring, setRecurring, setInterval} = props;
-    console.log(`isPublic ${isPublic}`);
-    console.log(`isRecurring ${isRecurring}`);
     return(
         <Fragment>
         <S.ListElement>

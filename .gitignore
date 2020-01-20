@@ -3,5 +3,7 @@
 
 /server-build/
 /dist/
+/public/
+/build/
 
 package-lock.json

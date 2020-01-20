@@ -116,8 +116,6 @@ app.get('*', (req, res) => {
       ,
     );
 
-    console.log(`server stores ${serialize(req.reduxStore.getState())}`);
-
     return res.send(`<!DOCTYPE html>
   <head>
 

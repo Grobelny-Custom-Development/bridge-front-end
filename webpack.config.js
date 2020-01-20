@@ -4,6 +4,7 @@ const baseConfig = require('./webpack.base');
 
 new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG']);
 
+// TODO:: get this working properly
 const apiVariables = new webpack.DefinePlugin({
   API_URL: JSON.stringify('https://bridge-api-dev.herokuapp.com'),
 });

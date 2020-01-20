@@ -3,6 +3,10 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpackNodeExternals = require('webpack-node-externals');
 const baseConfig = require('./webpack.base.js');
+const apiVariables = new webpack.DefinePlugin({
+  API_URL: JSON.stringify('http://localhost:8000'),
+  // API_URL: JSON.stringify('https://bridge-api-dev.herokuapp.com'),
+});
 
 const config = {
   // Inform webpack that we're building a bundle
@@ -22,7 +26,15 @@ const config = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
-  }
+  },
+  plugins: [
+    apiVariables,
+    new HtmlWebPackPlugin({
+      template: './src/index.html',
+      filename: './index.html',
+    }),
+    new webpack.SourceMapDevToolPlugin({}),
+  ]
 };
 
 module.exports = merge(baseConfig, config);

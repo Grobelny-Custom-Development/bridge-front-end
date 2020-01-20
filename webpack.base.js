@@ -22,12 +22,4 @@ module.exports = {
       }
     ],
   },
-  plugins: [
-    apiVariables,
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-    }),
-    new webpack.SourceMapDevToolPlugin({}),
-  ]
 };

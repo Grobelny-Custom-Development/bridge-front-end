@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const webpackNodeExternals = require('webpack-node-externals');
@@ -29,11 +28,6 @@ const config = {
   },
   plugins: [
     apiVariables,
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-    }),
-    new webpack.SourceMapDevToolPlugin({}),
   ]
 };
 

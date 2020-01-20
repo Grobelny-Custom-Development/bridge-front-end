@@ -1,10 +1,15 @@
+const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
-const apiVariables = new webpack.DefinePlugin({
-  API_URL: JSON.stringify('http://localhost:8000'),
-  // API_URL: JSON.stringify('https://bridge-api-dev.herokuapp.com'),
-});
+var API_URL = {
+  production: ('https://bridge-api-dev.herokuapp.com'),
+  development: JSON.stringify('http://localhost:8000'),
+}
+var environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
+console.log(environment)
+
+
 const config = {
   mode: 'development',
   // Tell webpack to root file of our server app
@@ -17,11 +22,14 @@ const config = {
   },
   devtool: 'inline-source-map',
   plugins: [
-    apiVariables,
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-    }),
+    new webpack.DefinePlugin({
+      'API_URL': API_URL[environment]
+  }),
+    // apiVariables,
+    // new HtmlWebPackPlugin({
+    //   template: './src/index.html',
+    //   filename: './index.html',
+    // }),
     new webpack.SourceMapDevToolPlugin({}),
   ]
 };

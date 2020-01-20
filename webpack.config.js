@@ -1,13 +1,12 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG']);
-
-// TODO:: get this working properly
-const apiVariables = new webpack.DefinePlugin({
-  API_URL: JSON.stringify('https://bridge-api-dev.herokuapp.com'),
-});
+var API_URL = {
+  production: JSON.stringify('https://bridge-api-dev.herokuapp.com'),
+  development: JSON.stringify('http://localhost:8000'),
+}
 
 const config = {
   mode: 'production',
@@ -21,9 +20,14 @@ const config = {
     modules: true,
     children: true
   },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()],
+  },
   entry: './src/client/index.js',
   plugins: [
-    apiVariables
+    new webpack.DefinePlugin({
+      'API_URL': API_URL['production']
+  }),
   ],
 };
 

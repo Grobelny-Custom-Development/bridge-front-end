@@ -12,7 +12,7 @@ class Profile extends Component {
                 headers: {
                     Authorization: `JWT ${token}`
                 },
-                url: 'http://localhost:8000/users/user/',
+                url: `${API_URL}users/user/`,
                 method: 'GET',
               })
             console.log(response)

@@ -30,15 +30,10 @@ const persistConfig = {
   // }
 };
 
-
-console.log(Cookies.get());
-
 const persistRootReducer = persistCombineReducers(persistConfig, rootReducer);
 
 const store = createStore(persistRootReducer, composeWithDevTools(applyMiddleware(thunk)));
 const persistor = persistStore(store, {});
-
-console.log(`client stores ${serialize(store.getState())}`);
 
 ReactDOM.hydrate(
   <Provider store={store}>

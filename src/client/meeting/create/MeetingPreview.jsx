@@ -45,14 +45,14 @@ class MeetingPreview extends Component {
 
     componentDidMount(){
         const { token, match } = this.props;
-
+        
         const {  params : { meetingID }} = match;
         axios({
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
               Authorization: `JWT ${token}`
             },
-            url: 'http://localhost:8000/meetings/active/preview/',
+            url: `${API_URL}meetings/active/preview/`,
             method: 'GET',
             params: {
                 meeting_uuid: meetingID

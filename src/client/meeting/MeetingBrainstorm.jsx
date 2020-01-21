@@ -38,12 +38,15 @@ class MeetingBrainstorm extends Component {
         this.state = {
           brainstormCards: null,
           content: null,
+          isLoading: false,
         }
       }
 
     componentDidMount(){
         const { match, token } = this.props;
         const {  params : { meetingID }} = match;
+
+        this.setState({ isLoading: true})
         axios({
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
@@ -58,9 +61,11 @@ class MeetingBrainstorm extends Component {
         .then(({data}) => {
             const { brainstorm_cards } = data;
             this.setState({ brainstormCards: brainstorm_cards})
+            this.setState({ isLoading: false})
         })
         .catch((error) => {
             console.log(error);
+            this.setState({ isLoading: false})
         });
     }
     addCard = () => {
@@ -89,29 +94,34 @@ class MeetingBrainstorm extends Component {
         }); 
     }
     render(){
-        const { brainstormCards } = this.state;
+        const { brainstormCards, isLoading } = this.state;
+        const { history } = this.props;
         return(
             <Fragment>
                 <h1> Brainstorm Activity </h1>
-                <BoxContainerStyled >
-                {
-                    brainstormCards && (
-                        <Fragment>{
+                { brainstormCards && (
+                 <BoxContainerStyled >
+                        {
                             brainstormCards.map(({content}) => (
-                                <BoxItemStyled>
+                                <BoxItemStyled key={`${content}`}>
                                 <p> {`${content}`}</p>
                                 </BoxItemStyled>
                             ))
                         }
-                        </Fragment>
-                    )
-    
-                }
                     <BoxItemStyled>
-                        <textarea onChange={(e)=> this.setState({content: e.target.value})} />
-                        <S.ButtonElement onClick={()=> this.addCard()}> Add Card </S.ButtonElement>
+                    <textarea onChange={(e)=> this.setState({content: e.target.value})} />
+                    <S.ButtonElement onClick={()=> this.addCard()}> Add Card </S.ButtonElement>
                     </BoxItemStyled>
                 </BoxContainerStyled>
+                
+                )
+                }
+                {
+                    isLoading && (
+                        <h3> Loading ...</h3>
+                    )
+                }
+                <S.ButtonElement onClick={()=> history.push("/")}> Complete Activity </S.ButtonElement>
             </Fragment>
         )
     }

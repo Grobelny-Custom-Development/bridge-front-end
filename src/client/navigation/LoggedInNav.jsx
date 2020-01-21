@@ -8,9 +8,10 @@ import { setToken } from '../UserActions.js';
 import S from "./navStyles.js";
 
 
-const LoggedInNav = (props) => {
+const LoggedInNav = ({ setTokenAction, history }) => {
     const logout = () => {
-        props.setTokenAction(null);
+        setTokenAction(null);
+        window.location.href="/login";
     }
     return(
         <S.Ul>

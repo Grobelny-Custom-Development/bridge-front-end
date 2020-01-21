@@ -7,7 +7,6 @@ var API_URL = {
   development: JSON.stringify('http://localhost:8000'),
 }
 var environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
-console.log(environment)
 
 
 const config = {

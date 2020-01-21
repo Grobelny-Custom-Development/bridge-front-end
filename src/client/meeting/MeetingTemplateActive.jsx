@@ -18,6 +18,7 @@ const BoxItemStyled = styled.div`
     border-radius: 4px;
     box-shadow: 2px 4px #898989;
     margin: 5px;
+    max-width: 200px;
     width: 200px;
     height: 200px;
     padding: 10px;

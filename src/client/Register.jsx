@@ -1,9 +1,11 @@
 import React, { useState, Fragment } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import S from './formStyles.js';
-import { create } from 'domain';
+import PropTypes from 'prop-types';
+import { setToken } from './UserActions.js';
 
-const Register = ({ setToken }) => {
+const Register = ({ setTokenAction, history }) => {
   // React Hooks declaration
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -30,14 +32,13 @@ const Register = ({ setToken }) => {
       })
     .then(({data}) => {
         const { token } = data;
-        setToken(token);
-        // window.location.href = "/";
+        setTokenAction(token);
+        history.push('/')
     })
     .catch((error) => {
         console.log(error);
     });
 }
-  console.log(`${API_URL}/users/register/`)
   return (
     <Fragment>
       <h1> Registration </h1>
@@ -100,4 +101,15 @@ const Register = ({ setToken }) => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setTokenAction: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  setTokenAction: token => dispatch(setToken(token)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Register);

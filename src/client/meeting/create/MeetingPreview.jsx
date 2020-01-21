@@ -52,7 +52,7 @@ class MeetingPreview extends Component {
               'X-Requested-With': 'XMLHttpRequest',
               Authorization: `JWT ${token}`
             },
-            url: `${API_URL}meetings/active/preview/`,
+            url: `${API_URL}/meetings/active/preview/`,
             method: 'GET',
             params: {
                 meeting_uuid: meetingID

@@ -10,7 +10,6 @@ export default function userReducer(state = initialState, action) {
   const { type, payload, value } = action;
   switch (type) {
     case SET_TOKEN:
-      console.log(action);
       return {
         ...state,
         token: value,

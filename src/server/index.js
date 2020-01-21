@@ -103,30 +103,34 @@ app.get('*', (req, res) => {
     });
 
   // Wait for all the loadData functions, if they are resolved, send the rendered html to browser.
-  Promise.all(promises).then(() => {
-    const context = {};
-    const content = ReactDOMServer.renderToString(
-    // <PersistGate persistor={persistor} >
-      <Provider store={req.reduxStore}>
-        <StaticRouter location={req.path} context={context}>
-          <div>{renderRoutes(Routes)}</div>
-        </StaticRouter>
-      </Provider>
-      // </PersistGate>
-      ,
-    );
+  // TODO:: integrate when actually pre-fetching
+  // Promise.all(promises).then(() => {
 
-    return res.send(`<!DOCTYPE html>
-  <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </head>
-  <body>
-      <div id="root">${content}</div>
-      <script src="/bundle.js"></script>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </body>
+  // });
+
+
+  const context = {};
+  const content = ReactDOMServer.renderToString(
+  // <PersistGate persistor={persistor} >
+    <Provider store={req.reduxStore}>
+      <StaticRouter location={req.path} context={context}>
+        <div>{renderRoutes(Routes)}</div>
+      </StaticRouter>
+    </Provider>
+    // </PersistGate>
+    ,
+  );
+
+  return res.send(`<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <div id="root">${content}</div>
+    <script src="/bundle.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</body>
 </html>`);
-  });
 });
 
 app.listen(PORT, () => {

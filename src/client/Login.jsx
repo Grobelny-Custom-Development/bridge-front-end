@@ -24,9 +24,10 @@ const Login = (props) => {
             data: postData,
           })
         .then(({data}) => {
+            const { setTokenAction, history } = props;
             const { token } = data;
-            props.setTokenAction(token);
-            // window.location.href = "/";
+            setTokenAction(token);
+            history.push('/');
         })
         .catch((error) => {
             console.log(error)

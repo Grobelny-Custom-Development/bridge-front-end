@@ -65,10 +65,11 @@ class MeetingActive extends Component{
 
     render(){
         const { activeMeetings } = this.state;
+        const displayActiveMeetings =  !!(activeMeetings && activeMeetings.length > 0);
         return(
             <Fragment>
                 {
-                    activeMeetings && (
+                    displayActiveMeetings && (
                         <BoxContainerStyled >{
                             activeMeetings.map(({meeting_uuid, start_date, meeting_template}) => (
                                 <BoxItemStyled>
@@ -82,7 +83,7 @@ class MeetingActive extends Component{
                     )
 
                 }
-                { !activeMeetings && (
+                { !displayActiveMeetings && (
                     <p> No Active Meetings</p>
                 )
 

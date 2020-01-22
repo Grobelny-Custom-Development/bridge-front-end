@@ -39,7 +39,7 @@ ReactDOM.hydrate(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <BrowserRouter>
-        <div>{renderRoutes(Routes)}</div>
+        {renderRoutes(Routes)}
       </BrowserRouter>
     </PersistGate>
   </Provider>,

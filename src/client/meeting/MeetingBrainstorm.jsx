@@ -86,19 +86,23 @@ class MeetingBrainstorm extends Component {
             data: postData,
           })
         .then(({data}) => {
+            // TODO potentially just do this on the backend
             const { brainstorm_cards } = data;
-            this.setState({ brainstormCards: brainstorm_cards})
+            this.setState({ brainstormCards: brainstorm_cards, isLoading: false, content: null})
         })
         .catch((error) => {
             console.log(error);
+            this.setState({ isLoading: false})
         }); 
     }
     render(){
         const { brainstormCards, isLoading } = this.state;
-        const { history } = this.props;
+        const { history, match } = this.props;
+        const {  params : { meetingID }} = match;
+
         return(
             <Fragment>
-                <h1> Brainstorm Activity </h1>
+                <h2> Brainstorm Activity </h2>
                 { brainstormCards && (
                  <BoxContainerStyled >
                         {
@@ -121,7 +125,7 @@ class MeetingBrainstorm extends Component {
                         <h3> Loading ...</h3>
                     )
                 }
-                <S.ButtonElement onClick={()=> history.push("/")}> Complete Activity </S.ButtonElement>
+                <S.ButtonElement onClick={()=> history.push(`/meeting/activity/${meetingID}/brainstorm/summary`)}> Next </S.ButtonElement>
             </Fragment>
         )
     }

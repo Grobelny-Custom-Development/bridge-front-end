@@ -9,6 +9,8 @@ import MeetingCreate from './meeting/create/MeetingCreate.jsx';
 import MeetingActive from './meeting/MeetingActive.jsx';
 import MeetingBrainstorm from './meeting/MeetingBrainstorm.jsx';
 import MeetingPreview from './meeting/create/MeetingPreview.jsx';
+import MeetingPrioritize from './meeting/MeetingPrioritize.jsx';
+import MeetingBrainstormSummary from './meeting/MeetingBrainstormSummary.jsx';
 
 
 export default [
@@ -36,7 +38,7 @@ export default [
         exact: true,
       },
       {
-        path: '/meeting/:category?/:meetingID?/:meetingActivity?',
+        path: '/meeting/:category?/:meetingID?/:meetingActivity?/:activitySummary',
         component: MeetingRouter,
         routes: [
           {
@@ -58,6 +60,16 @@ export default [
           {
             path: '/meeting/activity/:meetingID/brainstorm/',
             component: MeetingBrainstorm,
+            exact: true,
+          },
+          {
+            path: '/meeting/activity/:meetingID/brainstorm/',
+            component: MeetingBrainstormSummary,
+          },
+          {
+            path: '/meeting/activity/:meetingID/prioritization/',
+            component: MeetingPrioritize,
+            exact: true,
           },
         ],
       },

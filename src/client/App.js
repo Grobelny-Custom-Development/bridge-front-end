@@ -7,13 +7,23 @@ import Navigation from './navigation/Navigation.jsx';
 
 const globalCSS = css`
 body{
+  margin: 0px;
   font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
   background: #f4f4f4;
-  color: #0e8afc;
+  h1{
+    color: #d9d9d9
+  }
+}
+`;
+
+const pageCss = css`
+display: flex;
+min-height: 100vh;
+
 `;
 
 
-const pageCss = css`
+const routeCss = css`
 width: 80%;
 max-width: 1200px;
 margin: 0 auto;
@@ -23,10 +33,10 @@ margin: 0 auto;
 const App = (props) => {
   const { route, match } = props;
   return (
-    <div>
+    <div css={pageCss}>
       <Global styles={globalCSS} />
       <Navigation />
-      <div css={pageCss}>
+      <div css={routeCss}>
         {renderRoutes(route.routes)}
       </div>
     </div>

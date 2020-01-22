@@ -79,8 +79,8 @@ class MeetingPreview extends Component {
                   <Fragment>
                     <BoxItemStyled>
                     
-                    <h1>{`Name: ${activeMeetingTemplate.name}`}</h1>
-                    <h2>{`Description: ${activeMeetingTemplate.description}`}</h2>
+                    <h2>{`${activeMeetingTemplate.name}`}</h2>
+                    <h3>{`${activeMeetingTemplate.description}`}</h3>
                     { activeMeetingTemplate.components.length > 0 && (
                       activeMeetingTemplate.components.map( (component) => (
                         <ComponentRowStyled>

@@ -114,7 +114,7 @@ app.get('*', (req, res) => {
   // <PersistGate persistor={persistor} >
     <Provider store={req.reduxStore}>
       <StaticRouter location={req.path} context={context}>
-        <div>{renderRoutes(Routes)}</div>
+        {renderRoutes(Routes)}
       </StaticRouter>
     </Provider>
     // </PersistGate>

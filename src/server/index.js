@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import express from 'express';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';

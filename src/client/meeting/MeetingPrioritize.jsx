@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import S from '../formStyles.js'
+import BridgeWebAPI from '../helpers/api.js'
 
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'
@@ -19,8 +20,8 @@ class MeetingPrioritize extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          brainstormCards: null,
-          content: null,
+          activeCards: null,
+          prioritizedCards: null,
           isLoading: false,
         }
       }
@@ -30,12 +31,11 @@ class MeetingPrioritize extends Component {
         const {  params : { meetingID }} = match;
 
         this.setState({ isLoading: true})
-        axios({
+        BridgeWebAPI.request({
             headers: {
-              'X-Requested-With': 'XMLHttpRequest',
               Authorization: `JWT ${token}`
             },
-            url: `${API_URL}/meetings/prioritization/`,
+            url: `${API_URL}/meetings/card/active/`,
             method: 'GET',
             params: {
                 meeting_uuid: meetingID
@@ -43,13 +43,42 @@ class MeetingPrioritize extends Component {
           })
         .then(({data}) => {
             const { cards } = data;
-            this.setState({ activeCards: cards})
+            this.setState({ activeCards: cards, prioritizedCards: cards})
             this.setState({ isLoading: false})
         })
         .catch((error) => {
             console.log(error);
             this.setState({ isLoading: false})
         });
+    }
+
+    setPrioritizedCards = (prioritizedCards) => {
+        this.setState({ prioritizedCards: prioritizedCards})
+    }
+
+    saveOrdering = async () => {
+        const { prioritizedCards } = this.state;
+        const prioritizeUrl = `${API_URL}/meetings/prioritization/`
+        const { match, token, history } = this.props;
+        const {  params : { meetingID }} = match;
+
+        const postData = {
+          'meeting_uuid': meetingID,
+          'prioritized_cards': prioritizedCards
+      };
+        const response = await BridgeWebAPI.request({
+                headers: {
+                  Authorization: `JWT ${token}`
+                },
+                url: prioritizeUrl,
+                method: 'POST',
+                data: postData,
+              })
+        if ( response.status === 200){
+            history.push(`/meeting/activity/${meetingID}/prioritization/summary`);
+        }
+
+        // redirect to your meetings
     }
     render(){
         const { activeCards, isLoading } = this.state;
@@ -62,11 +91,11 @@ class MeetingPrioritize extends Component {
             { displayActiveCards &&
             <ListContainerStyled>
                 <DndProvider backend={Backend}>
-                    <Container activeCards={activeCards} />
+                    <Container activeCards={activeCards} setPrioritizedCards={this.setPrioritizedCards} />
                 </DndProvider>
             </ListContainerStyled>
             }
-            <S.ButtonElement onClick={()=> history.push("/")}> Next </S.ButtonElement>
+            <S.ButtonElement onClick={()=> this.saveOrdering()}> Next </S.ButtonElement>
             </Fragment>
         )
     }
@@ -87,27 +116,3 @@ export default connect(
     mapStateToProps,
     null,
 )(MeetingPrioritize);
-
-
-
-{/* <h2> Prioritization Activity </h2>
-<p> Drag and drop the cards in order of highest (top) and the least (bottom) priority.</p>
-
-{ displayActiveCards  && (
- <ListContainerStyled>
-     <DragSortableList items={ activeCards }
-    //     activeCards.map(({content}) => (
-    //         <ListItemStyled key={`${content}`}> {`${content}`} </ListItemStyled>
-    //     ))
-    // }  
-    placeholder={'hello'} onSort={ ()=> this.setState({})} dropBackTransitionDuration={0.3} type="vertical"/>
-
-</ListContainerStyled>
-)
-}
-{
-isLoading && (
-    <h3> Loading ...</h3>
-)
-}
-<S.ButtonElement onClick={()=> history.push("/")}> Next </S.ButtonElement> */}

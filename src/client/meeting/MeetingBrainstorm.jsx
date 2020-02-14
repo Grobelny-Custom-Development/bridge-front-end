@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import S from '../formStyles.js'
+import BridgeWebAPI from '../helpers/api.js';
 
 const BoxContainerStyled = styled.div`
 display: flex;
@@ -47,24 +48,20 @@ class MeetingBrainstorm extends Component {
         const {  params : { meetingID }} = match;
 
         this.setState({ isLoading: true})
-        axios({
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              Authorization: `JWT ${token}`
-            },
-            url: `${API_URL}/meetings/brainstorm/`,
+        BridgeWebAPI.request({
+            headers: { Authorization: `JWT ${token}`},
+            url: `${API_URL}/meetings/card/user/`,
             method: 'GET',
             params: {
                 meeting_uuid: meetingID
             }
           })
         .then(({data}) => {
-            const { brainstorm_cards } = data;
-            this.setState({ brainstormCards: brainstorm_cards})
+            const { cards } = data;
+            this.setState({ brainstormCards: cards})
             this.setState({ isLoading: false})
         })
         .catch((error) => {
-            console.log(error);
             this.setState({ isLoading: false})
         });
     }
@@ -72,29 +69,22 @@ class MeetingBrainstorm extends Component {
         const { match, token } = this. props;
         const { content } = this.state;
         const {  params : { meetingID }} = match;
-
-        const postData = new FormData();
-        postData.append('content', content);
-        postData.append('meeting_uuid', meetingID);
-        axios({
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              Authorization: `JWT ${token}`
-            },
-            url: `${API_URL}/meetings/brainstorm/`,
-            method: 'POST',
-            data: postData,
-          })
-        .then(({data}) => {
+        const brainstormURL = `${API_URL}/meetings/brainstorm/`;
+        
+        BridgeWebAPI.post(
+            { Authorization: `JWT ${token}`},
+            brainstormURL, 
+            { content , 'meeting_uuid': meetingID}
+            ).then(({data}) => {
             // TODO potentially just do this on the backend
             const { brainstorm_cards } = data;
             this.setState({ brainstormCards: brainstorm_cards, isLoading: false, content: null})
-        })
-        .catch((error) => {
+        }).catch((error) => {
             console.log(error);
             this.setState({ isLoading: false})
-        }); 
+        })
     }
+
     render(){
         const { brainstormCards, isLoading } = this.state;
         const { history, match } = this.props;
@@ -129,9 +119,8 @@ class MeetingBrainstorm extends Component {
             </Fragment>
         )
     }
-
-
 }
+
 const mapStateToProps = ({
     reducer: {
         user: {

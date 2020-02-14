@@ -5,6 +5,7 @@ import moment from 'moment';
 import React, { Fragment, Component } from "react";
 import { connect } from 'react-redux';
 import S from  '../../formStyles.js';
+import BridgeWebAPI from '../../helpers/api.js';
 
 const BoxItemStyled = styled.div`
     color: black;
@@ -47,18 +48,14 @@ class MeetingPreview extends Component {
         const { token, match } = this.props;
         
         const {  params : { meetingID }} = match;
-        axios({
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              Authorization: `JWT ${token}`
-            },
-            url: `${API_URL}/meetings/active/preview/`,
-            method: 'GET',
-            params: {
-                meeting_uuid: meetingID
-            }
-          })
-        .then(({data}) => {
+        BridgeWebAPI.request(({
+          headers: { Authorization: `JWT ${token}`},
+          url: `${API_URL}/meetings/card/user/`,
+          method: 'GET',
+          params: {
+              meeting_uuid: meetingID
+          }
+        })).then(({data}) => {
             const { meeting } = data;
             const { meeting_template : meetingTemplate } = meeting;
             this.setState({ activeMeetingTemplate: meetingTemplate, meetingUUID: meeting.meeting_uuid})

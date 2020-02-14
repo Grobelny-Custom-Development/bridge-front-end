@@ -4,19 +4,16 @@ import update from 'immutability-helper'
 const style = {
   width: 400,
 }
-const Container = ({activeCards}) => {
+const Container = ({activeCards, setPrioritizedCards, displayRow }) => {
     const [cards, setCards] = useState(activeCards);
     const moveCard = useCallback(
       (dragIndex, hoverIndex) => {
-        const dragCard = cards[dragIndex]
-        setCards(
-          update(cards, {
-            $splice: [
-              [dragIndex, 1],
-              [hoverIndex, 0, dragCard],
-            ],
-          }),
-        )
+        console.log(`dragIndex ${dragIndex}`);
+        console.log(`hoverIndex ${hoverIndex}`);
+        const dragCard = cards[dragIndex];
+        const prioritizedCards = update(cards, { $splice: [ [dragIndex, 1], [hoverIndex, 0, dragCard],],});
+        setCards(prioritizedCards);
+        setPrioritizedCards(prioritizedCards);
       },
       [cards],
     )
@@ -28,6 +25,8 @@ const Container = ({activeCards}) => {
           id={card.id}
           text={card.content}
           moveCard={moveCard}
+          displayRow={displayRow}
+          
         />
       )
     }

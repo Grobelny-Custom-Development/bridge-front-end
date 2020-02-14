@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {
     Link,
   } from "react-router-dom";
+import BridgeWebAPI from '../helpers/api.js';
 
 const BoxContainerStyled = styled.div`
 display: flex;
@@ -45,15 +46,11 @@ class MeetingActive extends Component{
 
     componentDidMount(){
         const { token } = this.props;
-        axios({
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              Authorization: `JWT ${token}`
-            },
+        BridgeWebAPI.request(({
+            headers: { Authorization: `JWT ${token}`},
             url: `${API_URL}/meetings/active/`,
-            method: 'GET',
-          })
-        .then(({data}) => {
+            method: 'GET'
+          })).then(({data}) => {
             const { meetings } = data;
             this.setState({ activeMeetings: meetings})
         })

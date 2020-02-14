@@ -44,7 +44,7 @@ class MeetingTemplateActive extends Component{
 
     componentDidMount(){
         const { token } = this.props;
-        const templateURL = `${API_URL}/meetings/active/template`
+        const templateURL = `${API_URL}/meetings/active/`
         axios({
             headers: {
               'X-Requested-With': 'XMLHttpRequest',

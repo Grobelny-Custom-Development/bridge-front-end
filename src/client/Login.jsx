@@ -1,9 +1,10 @@
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from "react";
 import { setToken } from './UserActions.js';
 import S from './formStyles.js'
+
+import BridgeWebAPI from './helpers/api.js';
 
 
 const Login = (props) => {
@@ -12,17 +13,7 @@ const Login = (props) => {
     const [password, setPassword] = useState("");
     const handleLogin = () => {
         const loginUrl = `${API_URL}/users/token-auth/`;
-        const postData = new FormData();
-        postData.append('email', email);
-        postData.append('password', password);
-        axios({
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-            },
-            url: loginUrl,
-            method: 'POST',
-            data: postData,
-          })
+        BridgeWebAPI.post({}, loginUrl, { email, password})
         .then(({data}) => {
             const { setTokenAction, history } = props;
             const { token } = data;

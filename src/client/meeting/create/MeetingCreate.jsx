@@ -7,6 +7,7 @@ import S from '../../formStyles.js'
 import MeetingMeta from "./MeetingMeta.jsx";
 import MeetingTiming from "./MeetingTiming.jsx";
 import MeetingComponentSummary from "./MeetingComponentSummary.jsx";
+import BridgeWebAPI from '../../helpers/api.js';
 
 
 const MeetingCreate = (props) => {
@@ -24,14 +25,12 @@ const MeetingCreate = (props) => {
             const fetchComponents = async () => {
                 const { token } = props;
                 const meetingCreateUrl = `${API_URL}/meetings/components/`
-                const result = await axios({
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        Authorization: `JWT ${token}`
-                        },
-                        url: meetingCreateUrl,
-                        method: 'GET',
-                })
+                const result = await 
+                BridgeWebAPI.request(({
+                  headers: { Authorization: `JWT ${token}`},
+                  url: meetingCreateUrl,
+                  method: 'GET'
+                }))
                 const { data } = result;
                 setComponentList(data.components);
             }
@@ -42,31 +41,27 @@ const MeetingCreate = (props) => {
         const createMeeting = async () => {
             const meetingCreateUrl = `${API_URL}/meetings/structure/create/`
             const { token, history } = props;
-            const postData = new FormData();
-            postData.append('name', meetingName);
-            postData.append('public', isPublic);
-            postData.append('start_date', startDate);
-            postData.append('description', meetingDescription);
-            postData.append('recurring', isRecurring);
-            postData.append('interval', interval);
-            postData.append('selected_components', JSON.stringify(selectedComponents));
+            const postData = {
+              name: meetingName,
+              public: isPublic,
+              start_date: startDate,
+              description: meetingDescription,
+              recurring: isRecurring,
+              interval,
+              selected_components: JSON.stringify(selectedComponents)
+            }
 
+          const response = await BridgeWebAPI.post(
+              { Authorization: `JWT ${token}`},
+              meetingCreateUrl,
+              postData,
+            )
 
-            const response = await axios({
-                headers: {
-                  'X-Requested-With': 'XMLHttpRequest',
-                  Authorization: `JWT ${token}`
-                },
-                url: meetingCreateUrl,
-                method: 'POST',
-                data: postData,
-              })
+            // redirect to your meetings
             if ( response.status === 200){
               const { data : { meeting_uuid }} = response;
               history.push(`/meeting/preview/${meeting_uuid}`)
             }
-
-            // redirect to your meetings
         }
         return(
             <Fragment>

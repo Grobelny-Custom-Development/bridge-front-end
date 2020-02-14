@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
-import axios from 'axios';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import S from '../formStyles.js'
+import BridgeWebAPI from '../helpers/api.js';
 
 const BoxContainerStyled = styled.div`
 display: flex;
@@ -46,23 +46,19 @@ class MeetingBrainstormSummary extends Component {
         const {  params : { meetingID }} = match;
 
         this.setState({ isLoading: true})
-        axios({
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              Authorization: `JWT ${token}`
-            },
-            url: `${API_URL}/meetings/prioritization/`,
+        const brainstormURL = `${API_URL}/meetings/prioritization/`
+        BridgeWebAPI.request({
+            headers: { Authorization: `JWT ${token}`},
+            url: brainstormURL, 
             method: 'GET',
             params: {
                 meeting_uuid: meetingID
             }
-          })
-        .then(({data}) => {
-            const { cards } = data;
-            this.setState({ activeBrainstormCards: cards})
-            this.setState({ isLoading: false})
-        })
-        .catch((error) => {
+         }).then(({data}) => {
+            // TODO potentially just do this on the backend
+            const { brainstorm_cards } = data;
+            this.setState({ activeBrainstormCards: brainstorm_cards, isLoading: false})
+        }).catch((error) => {
             console.log(error);
             this.setState({ isLoading: false})
         });

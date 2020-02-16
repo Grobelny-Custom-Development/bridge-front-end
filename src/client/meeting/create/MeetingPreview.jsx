@@ -50,7 +50,7 @@ class MeetingPreview extends Component {
         const {  params : { meetingID }} = match;
         BridgeWebAPI.request(({
           headers: { Authorization: `JWT ${token}`},
-          url: `${API_URL}/meetings/card/user/`,
+          url: `${API_URL}/meetings/active/preview/`,
           method: 'GET',
           params: {
               meeting_uuid: meetingID

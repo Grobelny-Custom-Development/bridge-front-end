@@ -1,10 +1,9 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import S from '../formStyles.js';
-import Card from '../meeting/Card.jsx';
+import S from '../../formStyles.js';
 
-import request from '../clientRequest.js';
+import request from '../../helpers/api.js';
 
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'

@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import S from '../../formStyles.js'
+import Button from "../../bridge-components/Button.jsx";
 
 const MeetingComponentAddition =  (props) => {
     const { selectedComponents, componentList, updateComponentList } = props;
@@ -40,10 +41,11 @@ const MeetingComponentAddition =  (props) => {
                 )
                 }
                 </select>
-            <S.ButtonElement onClick={ () => {
+            <Button
+             onClick={ () => {
             const updatedComponentList = selectedComponents.concat([selectedComponent]);
             updateComponentList(updatedComponentList)
-            }}> + </S.ButtonElement>
+            }} text="+"/>
         </S.ListElement>
 
         </Fragment>

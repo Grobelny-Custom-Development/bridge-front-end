@@ -2,8 +2,8 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 
-import request from '../clientRequest.js';
-import S from '../formStyles.js'
+import request from '../../helpers/api.js';
+import S from '../../formStyles.js'
 
 class MeetingPrioritizeSummary extends Component {
     constructor(props) {

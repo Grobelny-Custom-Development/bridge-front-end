@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import MeetingActive from './meeting/MeetingActive.jsx';
 import MeetingTemplateActive from './meeting/MeetingTemplateActive.jsx';
-import S from './formStyles.js';
+import Button from './bridge-components/Button.jsx';
 const Home = (props) => {
   const { history } = props;
   return(
@@ -9,7 +9,7 @@ const Home = (props) => {
     <h1> Your Meetings: </h1>
     <MeetingActive />
     <h1> Create a New Meeting: </h1>
-    <S.ButtonElement onClick={ () => history.push('/meeting/create')}>Create Meeting</S.ButtonElement>
+    <Button onClick={ () => history.push('/meeting/create')} text="Create Meeting" />
     <h1> Trending Templates: </h1>
     <MeetingTemplateActive />
   </Fragment>

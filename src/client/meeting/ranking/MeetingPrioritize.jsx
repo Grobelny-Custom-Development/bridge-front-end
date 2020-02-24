@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from "react";
-import axios from 'axios';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import S from '../formStyles.js'
-import BridgeWebAPI from '../helpers/api.js'
+import S from '../../formStyles.js'
+import BridgeWebAPI from '../../helpers/api.js'
 
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'

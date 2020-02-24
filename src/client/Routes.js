@@ -9,7 +9,6 @@ import MeetingRouter from './meeting/MeetingRouter.jsx';
 import MeetingRoutes from './meeting/MeetingRoutes.js';
 
 
-
 export default [
   {
     component: App,

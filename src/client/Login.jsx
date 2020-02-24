@@ -2,18 +2,31 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from "react";
 import { setToken } from './UserActions.js';
-import S from './formStyles.js'
 
 import BridgeWebAPI from './helpers/api.js';
+import PageError from './helpers/PageError.jsx';
 
+import Form from './forms/Form.jsx';
+import Field from './forms/Field.jsx';
+import FormButton from './forms/FormButton.jsx';
+
+import * as Yup from 'yup';
+
+const SignInSchema = Yup.object().shape({
+
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .required('Password is required'),
+});
 
 const Login = (props) => {
     // React Hooks declaration
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const handleLogin = () => {
+    const [pageError, setPageError] = useState(null);
+    const handleLogin = ({email, password}) => {
         const loginUrl = `${API_URL}/users/token-auth/`;
-        BridgeWebAPI.post({}, loginUrl, { email, password})
+        BridgeWebAPI.post(null, loginUrl, { email, password})
         .then(({data}) => {
             const { setTokenAction, history } = props;
             const { token } = data;
@@ -21,38 +34,37 @@ const Login = (props) => {
             history.push('/');
         })
         .catch((error) => {
-            console.log(error)
+            // if(error.response){
+
+            // }
+            // else{
+                setPageError(error.message);
+            // }
         });
     }
-    return(
-        <Fragment>
-        <h1> Login </h1>
-            <S.UlElement>
-                <S.ListElement>
-                <label htmlFor="email">Email</label>
-                <input
-                type="text"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} 
-                />
-                </S.ListElement>
-                <S.ListElement>
-                <label htmlFor="password">Password</label>
-                <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                />
-                </S.ListElement>
-                <S.ButtonElement onClick={ () => handleLogin()}> Login </S.ButtonElement>
-            </S.UlElement>
-        </Fragment>
-    )
 
-}
+  return(
+    <div>
+    <PageError text={pageError} />
+    <h1>Sign In</h1>
+        <Form 
+            className='standard'
+            initialValues={{
+                  email: '',
+                  password:''
+                }} 
+            validationSchema={SignInSchema}
+            onSubmit={values => {
+              handleLogin(values)
+            }}>
+          <Field type="email" name="email" placeholder="Email" label="Email" />
+          <Field type="password" name="password" placeholder="Password" label="Password" />
+          <FormButton type="submit" text="Sign In" />
+        </Form>
+  </div>
 
+  )
+};
 Login.propTypes = {
     setToken: PropTypes.func
 };

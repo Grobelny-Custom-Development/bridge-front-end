@@ -49,17 +49,5 @@ p {
 
 `;
 
-S.ButtonElement = styled.button`
-  padding: 8px 16px;
-  border: none;
-  background: #6bd063;
-  color: #f2f2f2;
-  max-width: 100%;
-  width: 300px;
-  height: 50px;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  border-radius: 2px;
-`;
 
 export default S;

@@ -7,6 +7,7 @@ import BridgeWebAPI from '../../helpers/api.js'
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'
 import Container from './Container.jsx'
+import Button from "../../bridge-components/Button.jsx";
 
 const ListContainerStyled = styled.ul`
 display: flex;
@@ -94,7 +95,7 @@ class MeetingPrioritize extends Component {
                 </DndProvider>
             </ListContainerStyled>
             }
-            <S.ButtonElement onClick={()=> this.saveOrdering()}> Next </S.ButtonElement>
+            <Button onClick={()=> this.saveOrdering()} text="Next" />
             </Fragment>
         )
     }

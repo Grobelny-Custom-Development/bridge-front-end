@@ -1,4 +1,3 @@
-import axios from 'axios';
 import styled from '@emotion/styled';
 import moment from 'moment'
 import React, { Component, Fragment } from "react";
@@ -7,6 +6,7 @@ import {
     Link,
   } from "react-router-dom";
 import BridgeWebAPI from '../helpers/api.js';
+import Loader from '../helpers/Loader.jsx';
 
 const BoxContainerStyled = styled.div`
 display: flex;
@@ -41,10 +41,16 @@ class MeetingActive extends Component{
         super(props);
         this.state = {
           activeMeetings: null,
+          loading: false,
         }
       }
 
     componentDidMount(){
+        this.requestActiveMeetings();
+    }
+
+    requestActiveMeetings = () => {
+        this.setState({loading: true})
         const { token } = this.props;
         BridgeWebAPI.request(({
             headers: { Authorization: `JWT ${token}`},
@@ -53,16 +59,18 @@ class MeetingActive extends Component{
           })).then(({data}) => {
             const { meetings } = data;
             this.setState({ activeMeetings: meetings})
+            this.setState({ loading: false})
         })
         .catch((error) => {
-            console.log(error);
+            this.setState({ loading: false})
         });
     }
 
 
     render(){
-        const { activeMeetings } = this.state;
-        const displayActiveMeetings =  !!(activeMeetings && activeMeetings.length > 0);
+        const { activeMeetings, loading } = this.state;
+        const displayActiveMeetings =  !!(activeMeetings && activeMeetings.length > 0 && !loading );
+        const displayNoMeetings = !!( activeMeetings && activeMeetings.length == 0 && !loading);
         return(
             <Fragment>
                 {
@@ -80,11 +88,12 @@ class MeetingActive extends Component{
                     )
 
                 }
-                { !displayActiveMeetings && (
+                { displayNoMeetings && (
                     <p> No Active Meetings</p>
                 )
 
                 }
+                <Loader loading={loading} />
             
             </Fragment>
         )

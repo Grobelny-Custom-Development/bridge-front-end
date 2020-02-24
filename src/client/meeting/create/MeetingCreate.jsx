@@ -19,22 +19,22 @@ const MeetingCreate = (props) => {
         const [interval, setInterval] = useState("");
         const [componentList, setComponentList ] = useState(null);
         const [selectedComponents, updateComponentList] = useState([]);
+
+        const fetchComponents = async () => {
+          const { token } = props;
+          const meetingCreateUrl = `${API_URL}/meetings/components/`
+          const result = await 
+          BridgeWebAPI.request(({
+            headers: { Authorization: `JWT ${token}`},
+            url: meetingCreateUrl,
+            method: 'GET'
+          }))
+          const { data } = result;
+          setComponentList(data.components);
+      }
  
         useEffect( () => {
-            const fetchComponents = async () => {
-                const { token } = props;
-                const meetingCreateUrl = `${API_URL}/meetings/components/`
-                const result = await 
-                BridgeWebAPI.request(({
-                  headers: { Authorization: `JWT ${token}`},
-                  url: meetingCreateUrl,
-                  method: 'GET'
-                }))
-                const { data } = result;
-                setComponentList(data.components);
-            }
             fetchComponents();
-
           }, []);
 
         const createMeeting = async () => {
@@ -57,7 +57,7 @@ const MeetingCreate = (props) => {
             )
 
             // redirect to your meetings
-            if ( response.status === 200){
+            if (response.status === 200){
               const { data : { meeting_uuid }} = response;
               history.push(`/meeting/preview/${meeting_uuid}`)
             }
@@ -88,7 +88,7 @@ const MeetingCreate = (props) => {
                 setRecurring = {setRecurring}
                 setInterval = {setInterval}
             />
-            <Button onClick={ () => createMeeting()} text="Create Meeting"/>
+            <Button disabled={!!(selectedComponents.length > 0)} onClick={ () => createMeeting()} text="Create Meeting"/>
             </Fragment>
 
         )

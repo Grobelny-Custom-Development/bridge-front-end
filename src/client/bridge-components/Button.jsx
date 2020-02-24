@@ -8,24 +8,23 @@ const StyledButton = styled.button`
   background: #6bd063;
   color: #f2f2f2;
   max-width: 100%;
-  width: 300px;
+  width: ${props => props.width ? (props.width) : '400px'};
   height: 50px;
   text-transform: uppercase;
   letter-spacing: 0.09em;
   border-radius: 2px;
-  .is-disabled{
+  &.is-disabled{
     opacity: .5;
-    background: white;
   }
 `;
 
 
-const Button = ({
-  type, disabled,
-  onClick, text, primary,
-  tag, link, maxWidth,
-}) => {
-
+const Button = (props) => {
+  const {
+    type, disabled,
+    onClick, text, primary,
+    tag, link, maxWidth,
+  } = props;
   const [isBusy, setIsBusy] = useState(false);
   const onButtonClick = () => {
     if (onClick) {
@@ -35,7 +34,6 @@ const Button = ({
         .catch(() => setIsBusy(false));
     }
   };
-
   const buttonDisabled = (isBusy || disabled)? true : false;
   return (
     <StyledButton

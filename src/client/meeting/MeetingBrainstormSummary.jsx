@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import S from '../formStyles.js'
 import BridgeWebAPI from '../helpers/api.js';
+import Loader from '../helpers/Loader.jsx'
+import Button from "../bridge-components/Button.jsx";
 
 const BoxContainerStyled = styled.div`
 display: flex;
@@ -72,6 +74,7 @@ class MeetingBrainstormSummary extends Component {
         return(
             <Fragment>
                 <h2> Brainstorm Summary </h2>
+                <Loader loading={isLoading} />
                 { activeBrainstormCards && (
                  <BoxContainerStyled >
                         {
@@ -85,12 +88,8 @@ class MeetingBrainstormSummary extends Component {
                 
                 )
                 }
-                {
-                    isLoading && (
-                        <h3> Loading ...</h3>
-                    )
-                }
-                <S.ButtonElement onClick={()=> history.push(`/meeting/activity/${meetingID}/prioritization/`)}> Accept </S.ButtonElement>
+
+                <Button onClick={()=> history.push(`/meeting/activity/${meetingID}/prioritization/`)} text="Accept" />
             </Fragment>
         )
     }

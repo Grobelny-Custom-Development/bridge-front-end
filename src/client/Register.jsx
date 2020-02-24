@@ -4,6 +4,7 @@ import axios from 'axios';
 import S from './formStyles.js';
 import PropTypes from 'prop-types';
 import { setToken } from './UserActions.js';
+import Button from './bridge-components/Button.jsx';
 
 const Register = ({ setTokenAction, history }) => {
   // React Hooks declaration
@@ -96,7 +97,7 @@ const Register = ({ setTokenAction, history }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </S.ListElement>
-        <S.ButtonElement onClick={ () => createUser()}> Register </S.ButtonElement>
+        <Button  onClick={ () => createUser()} text="Register" />
     </Fragment>
   );
 };

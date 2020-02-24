@@ -1,13 +1,12 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import S from '../../formStyles.js';
-
-import request from '../../helpers/api.js';
 
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'
 import Container from './Container.jsx'
+import BridgeWebAPI from '../../helpers/api.js';
+import Button from '../../bridge-components/Button.jsx'
 
 
 const ListContainerStyled = styled.ul`
@@ -15,6 +14,9 @@ display: flex;
 flex-direction: row;
 flex-wrap: wrap;
 padding: 0;
+p{
+  width: 10%;
+}
 `;
 
 const ListItemStyled = styled.li`
@@ -46,7 +48,7 @@ class MeetingForcedRank extends Component {
     componentDidMount(){
         const { token, match } = this.props;
         const {  params : { meetingID }} = match;
-        request({
+        BridgeWebAPI.request({
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 Authorization: `JWT ${token}`
@@ -56,7 +58,7 @@ class MeetingForcedRank extends Component {
             params: {
                 meeting_uuid: meetingID
             }
-        }).then((data) => {
+        }).then(({data}) => {
             const {cards } = data;
             this.setState({ activeCards: cards})
         })
@@ -69,6 +71,8 @@ class MeetingForcedRank extends Component {
 
 
     render(){
+        const { match, history } = this.props;
+        const {  params : { meetingID }} = match;
         const { activeCards } = this.state;
         const displayActiveCards =  !!( activeCards && activeCards.length > 0)
         return(
@@ -80,9 +84,13 @@ class MeetingForcedRank extends Component {
             </p>
             { displayActiveCards && 
                 
-                    <DndProvider backend={Backend}>
-                        <Container displayRow activeCards={activeCards} setPrioritizedCards={this.setPrioritizedCards} />
-                    </DndProvider>
+              <DndProvider backend={Backend}>
+                  <Container 
+                  width="80%" 
+                  displayRow 
+                  activeCards={activeCards} 
+                  setPrioritizedCards={this.setPrioritizedCards} />
+              </DndProvider>
                 
             }
             <p>
@@ -90,7 +98,7 @@ class MeetingForcedRank extends Component {
             </p>
             </ListContainerStyled>
             <div>
-            <S.ButtonElement onClick={()=> history.push(`/meeting/activity/${meetingID}/forcedrank`)}> Next </S.ButtonElement>
+            <Button onClick={()=> history.push(`/meeting/activity/${meetingID}/forcedrank`)} text="Next" />
             </div>
         </Fragment>
         )

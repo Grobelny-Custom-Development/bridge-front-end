@@ -1,11 +1,9 @@
 
-import axios from 'axios';
 import styled from '@emotion/styled';
-import moment from 'moment';
 import React, { Fragment, Component } from "react";
 import { connect } from 'react-redux';
-import S from  '../../formStyles.js';
 import BridgeWebAPI from '../../helpers/api.js';
+import Button from '../../bridge-components/Button.jsx';
 
 const BoxItemStyled = styled.div`
     color: black;
@@ -92,7 +90,7 @@ class MeetingPreview extends Component {
 
                     }
                     </BoxItemStyled>
-                    <S.ButtonElement onClick={ () => history.push(`/meeting/activity/${meetingUUID}/brainstorm/`)}> Start PreWork </S.ButtonElement>
+                    <Button onClick={ () => history.push(`/meeting/activity/${meetingUUID}/brainstorm/`)} text="Start Prework"/>
                   </Fragment>
                 )
 

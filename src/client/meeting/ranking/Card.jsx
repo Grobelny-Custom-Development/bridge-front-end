@@ -15,10 +15,11 @@ const ListItemStyled = styled.li`
     p{
         font-size: 12px;
     }
+    width: ${props => (props.width)};
     opacity: ${props => (props.opacity ? props.opacity : '0')};
     display: ${props => (props.displayRow? 'inline-flex': 'list-item')};
 `;
-const Card = ({ id, text, index, moveCard, displayRow }) => {
+const Card = ({ id, text, index, moveCard, displayRow, width }) => {
   const ref = useRef(null)
   const [, drop] = useDrop({
     accept: 'card',
@@ -70,7 +71,7 @@ const Card = ({ id, text, index, moveCard, displayRow }) => {
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
   return (
-    <ListItemStyled ref={ref} key={`${text}`} opacity={opacity} displayRow={displayRow}> 
+    <ListItemStyled width={width} ref={ref} key={`${text}`} opacity={opacity} displayRow={displayRow}> 
         {`${text}`} 
     </ListItemStyled>
   )

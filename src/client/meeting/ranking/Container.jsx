@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from 'react'
 import Card from './Card.jsx'
 import update from 'immutability-helper'
-const style = {
-  width: 400,
-}
-const Container = ({activeCards, setPrioritizedCards, displayRow }) => {
+import styled from '@emotion/styled';
+
+
+const StyledContainer = styled.div`
+  width: ${props => (props.width ? props.width : '400px')};
+`;
+const Container = ({activeCards, setPrioritizedCards, displayRow, width }) => {
     const [cards, setCards] = useState(activeCards);
     const moveCard = useCallback(
       (dragIndex, hoverIndex) => {
@@ -18,6 +21,8 @@ const Container = ({activeCards, setPrioritizedCards, displayRow }) => {
       [cards],
     )
     const renderCard = (card, index) => {
+      const cardWidth =  (width) ? `${80 / cards.length}%` : '400px';
+      console.log(cardWidth)
       return (
         <Card
           key={card.id}
@@ -26,14 +31,15 @@ const Container = ({activeCards, setPrioritizedCards, displayRow }) => {
           text={card.content}
           moveCard={moveCard}
           displayRow={displayRow}
-          
+          width={cardWidth}
         />
       )
     }
+    
     return (
-      <>
-        <div style={style}>{cards.map((card, i) => renderCard(card, i))}</div>
-      </>
+      <StyledContainer width={width} >
+          {cards.map((card, i) => renderCard(card, i))}
+      </StyledContainer>
     )
 }
 export default Container

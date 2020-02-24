@@ -2,14 +2,13 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 
-import request from '../../helpers/api.js';
-import S from '../../formStyles.js'
+import BridgeWebAPI from '../../helpers/api.js';
+import Button from '../../bridge-components/Button.jsx';
 
 class MeetingPrioritizeSummary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          activeCards: null,
           prioritizedCards: null,
           isLoading: false,
         }
@@ -17,7 +16,7 @@ class MeetingPrioritizeSummary extends Component {
     componentDidMount(){
         const { token, match } = this.props;
         const {  params : { meetingID }} = match;
-        request({
+        BridgeWebAPI.request({
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 Authorization: `JWT ${token}`
@@ -27,10 +26,15 @@ class MeetingPrioritizeSummary extends Component {
             params: {
                 meeting_uuid: meetingID
             }
-        }).then((data) => {
+        }).then(({data}) => {
             const { brainstorm_cards } = data;
             this.setState({ prioritizedCards: brainstorm_cards})
-        })
+        }).catch((error) => {
+
+          console.log(error)
+        }
+        
+        )
 
     }
 
@@ -38,8 +42,9 @@ class MeetingPrioritizeSummary extends Component {
     render(){
       const { match, history } = this.props;
       const {  params : { meetingID }} = match;
-        const { prioritizedCards } = this.state;
-        const displayPrioritizedCards =  !!( prioritizedCards && prioritizedCards.length > 0)
+      const { prioritizedCards } = this.state;
+      const displayPrioritizedCards =  !!( prioritizedCards && prioritizedCards.length > 0)
+      console.log(prioritizedCards)
         return(
             <Fragment>
             <h1> Prioritization Summary</h1>
@@ -47,7 +52,7 @@ class MeetingPrioritizeSummary extends Component {
                 <p>{content}</p>
             ))
             }
-            <S.ButtonElement onClick={()=> history.push(`/meeting/activity/${meetingID}/forcedrank`)}> Next </S.ButtonElement>
+            <Button onClick={()=> history.push(`/meeting/activity/${meetingID}/forcedrank`)} text="Next" />
         </Fragment>
         )
 

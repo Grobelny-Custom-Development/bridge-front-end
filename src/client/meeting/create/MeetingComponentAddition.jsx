@@ -42,6 +42,7 @@ const MeetingComponentAddition =  (props) => {
                 }
                 </select>
             <Button
+            width="25px"
              onClick={ () => {
             const updatedComponentList = selectedComponents.concat([selectedComponent]);
             updateComponentList(updatedComponentList)

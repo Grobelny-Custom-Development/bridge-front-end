@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import S from '../formStyles.js'
 import BridgeWebAPI from '../helpers/api.js';
+import Button from "../bridge-components/Button.jsx";
+import Loader from "../helpers/Loader.jsx";
 
 const BoxContainerStyled = styled.div`
 display: flex;
@@ -38,7 +40,7 @@ class MeetingBrainstorm extends Component {
         super(props);
         this.state = {
           brainstormCards: null,
-          content: null,
+          content: '',
           isLoading: false,
         }
       }
@@ -78,17 +80,19 @@ class MeetingBrainstorm extends Component {
             ).then(({data}) => {
             // TODO potentially just do this on the backend
             const { brainstorm_cards } = data;
-            this.setState({ brainstormCards: brainstorm_cards, isLoading: false, content: null})
+            this.setState({ brainstormCards: brainstorm_cards, isLoading: false, content: ''})
         }).catch((error) => {
-            console.log(error);
             this.setState({ isLoading: false})
         })
     }
 
     render(){
-        const { brainstormCards, isLoading } = this.state;
+        const { brainstormCards, isLoading, content } = this.state;
         const { history, match } = this.props;
         const {  params : { meetingID }} = match;
+
+        const disableCardSubmission = !!(!content)
+        const cardText = (disableCardSubmission) ? "Enter a value" : "Add Card";
 
         return(
             <Fragment>
@@ -103,19 +107,15 @@ class MeetingBrainstorm extends Component {
                             ))
                         }
                     <BoxItemStyled>
-                    <textarea onChange={(e)=> this.setState({content: e.target.value})} />
-                    <S.ButtonElement onClick={()=> this.addCard()}> Add Card </S.ButtonElement>
+                    <textarea value={content} onChange={(e)=> this.setState({content: e.target.value})} />
+                    <Button disabled={disableCardSubmission} onClick={()=> this.addCard()} text={cardText} />
                     </BoxItemStyled>
                 </BoxContainerStyled>
                 
                 )
                 }
-                {
-                    isLoading && (
-                        <h3> Loading ...</h3>
-                    )
-                }
-                <S.ButtonElement onClick={()=> history.push(`/meeting/activity/${meetingID}/brainstorm/summary`)}> Next </S.ButtonElement>
+                <Loader loading={isLoading} />
+                <Button onClick={()=> history.push(`/meeting/activity/${meetingID}/brainstorm/summary`)} text="Continue" />
             </Fragment>
         )
     }

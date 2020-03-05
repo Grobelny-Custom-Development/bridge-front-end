@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styled from '@emotion/styled';
 
 const StyledButton = styled.button`
+  display: block;
   padding: 8px 16px;
   border: none;
   background: #6bd063;

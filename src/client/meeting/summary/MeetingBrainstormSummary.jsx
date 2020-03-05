@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from "react";
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import S from '../formStyles.js'
-import BridgeWebAPI from '../helpers/api.js';
-import Loader from '../helpers/Loader.jsx'
-import Button from "../bridge-components/Button.jsx";
+import BridgeWebAPI from '../../helpers/api.js';
+import Loader from '../../helpers/Loader.jsx'
+import Button from "../../bridge-components/Button.jsx";
 
 const BoxContainerStyled = styled.div`
 display: flex;

@@ -1,10 +1,9 @@
-import axios from 'axios';
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from 'react-redux';
 
 import MeetingMeta from "./MeetingMeta.jsx";
 import MeetingTiming from "./MeetingTiming.jsx";
-import MeetingComponentSummary from "./MeetingComponentSummary.jsx";
+import MeetingComponentSummary from "../summary/MeetingComponentSummary.jsx";
 import BridgeWebAPI from '../../helpers/api.js';
 import Button from '../../bridge-components/Button.jsx';
 
@@ -88,7 +87,7 @@ const MeetingCreate = (props) => {
                 setRecurring = {setRecurring}
                 setInterval = {setInterval}
             />
-            <Button disabled={!!(selectedComponents.length > 0)} onClick={ () => createMeeting()} text="Create Meeting"/>
+            <Button disabled={!!(selectedComponents.length == 0)} onClick={ () => createMeeting()} text="Create Meeting"/>
             </Fragment>
 
         )

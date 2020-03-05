@@ -1,13 +1,20 @@
 
 import MeetingCreate from './create/MeetingCreate.jsx';
 import MeetingActive from './MeetingActive.jsx';
-import MeetingBrainstorm from './MeetingBrainstorm.jsx';
-import MeetingPreview from './create/MeetingPreview.jsx';
-import MeetingPrioritize from './ranking/MeetingPrioritize.jsx';
-import MeetingPrioritizeSummary from './ranking/MeetingPrioritizeSummary.jsx';
-import MeetingBrainstormSummary from './MeetingBrainstormSummary.jsx';
-import MeetingForcedRank from './ranking/MeetingForcedRank.jsx';
 
+import MeetingPreview from './create/MeetingPreview.jsx';
+
+// Activity Components
+import MeetingBrainstorm from './MeetingBrainstorm.jsx';
+import MeetingPrioritize from './ranking/MeetingPrioritize.jsx';
+import MeetingForcedRank from './ranking/MeetingForcedRank.jsx';
+import MeetingBucketing from './grouping/MeetingBucketing.jsx';
+
+
+// Summary Components 
+import MeetingPrioritizeSummary from './summary/MeetingPrioritizeSummary.jsx';
+import MeetingBrainstormSummary from './summary/MeetingBrainstormSummary.jsx';
+import MeetingForcedRankSummary from './summary/MeetingForcedRankSummary.jsx';
 
 export default [
   {
@@ -47,5 +54,13 @@ export default [
   {
     path: '/meeting/activity/:meetingID/forcedrank',
     component: MeetingForcedRank,
+  },
+  {
+    path: '/meeting/activity/:meetingID/forcedrank/summary',
+    component: MeetingForcedRankSummary,
+  },
+  {
+    path: '/meeting/activity/:meetingID/bucketing/',
+    component: MeetingBucketing,
   },
 ];

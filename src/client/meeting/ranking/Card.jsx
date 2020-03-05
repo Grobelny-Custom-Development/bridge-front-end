@@ -15,6 +15,7 @@ const ListItemStyled = styled.li`
     p{
         font-size: 12px;
     }
+    max-width: 100px;
     width: ${props => (props.width)};
     opacity: ${props => (props.opacity ? props.opacity : '0')};
     display: ${props => (props.displayRow? 'inline-flex': 'list-item')};

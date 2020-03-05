@@ -11,8 +11,6 @@ const Container = ({activeCards, setPrioritizedCards, displayRow, width }) => {
     const [cards, setCards] = useState(activeCards);
     const moveCard = useCallback(
       (dragIndex, hoverIndex) => {
-        console.log(`dragIndex ${dragIndex}`);
-        console.log(`hoverIndex ${hoverIndex}`);
         const dragCard = cards[dragIndex];
         const prioritizedCards = update(cards, { $splice: [ [dragIndex, 1], [hoverIndex, 0, dragCard],],});
         setCards(prioritizedCards);

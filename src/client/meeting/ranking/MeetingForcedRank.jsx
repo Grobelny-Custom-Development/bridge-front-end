@@ -69,6 +69,11 @@ class MeetingForcedRank extends Component {
       this.setState({ prioritizedCards: prioritizedCards})
   }
 
+  // TODO:: Configure Prioritization Submission
+  submitActivity = () => {
+    
+  }
+
 
     render(){
         const { match, history } = this.props;
@@ -98,7 +103,7 @@ class MeetingForcedRank extends Component {
             </p>
             </ListContainerStyled>
             <div>
-            <Button onClick={()=> history.push(`/meeting/activity/${meetingID}/forcedrank`)} text="Next" />
+            <Button onClick={()=> history.push(`/meeting/activity/${meetingID}/bucketing/`)} text="Next" />
             </div>
         </Fragment>
         )

@@ -5,7 +5,7 @@ const baseConfig = require('./webpack.base');
 
 const API_URL = {
   production: ('https://bridge-api-dev.herokuapp.com'),
-  development: JSON.stringify('http://localhost:8000'),
+  development: JSON.stringify('http://localhost:9000'),
 };
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
@@ -25,11 +25,6 @@ const config = {
     new webpack.DefinePlugin({
       API_URL: API_URL[environment],
     }),
-    // apiVariables,
-    // new HtmlWebPackPlugin({
-    //   template: './src/index.html',
-    //   filename: './index.html',
-    // }),
     new webpack.SourceMapDevToolPlugin({}),
   ],
 };

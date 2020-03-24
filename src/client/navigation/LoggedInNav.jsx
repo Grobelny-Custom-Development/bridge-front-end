@@ -4,7 +4,7 @@ import {
     Link
   } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { setToken } from '../UserActions.js';
+import { setToken } from '../actions/UserActions.js';
 import S from "./navStyles.js";
 
 

@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { useState, useEffect, Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
@@ -17,23 +17,6 @@ padding: 0;
 p{
   width: 10%;
 }
-`;
-
-const ListItemStyled = styled.li`
-    color: black;
-    border-radius: 4px;
-    box-shadow: 2px 4px #898989;
-    height: 50px;
-    padding: 10px;
-    flex-grow: 1;
-    list-style: none;
-    background-color: #ffff;
-    margin-bottom: 5px;
-    p{
-        font-size: 12px;
-    }
-    width:100px;
-    display: inline;
 `;
 
 class MeetingForcedRank extends Component {
@@ -56,7 +39,7 @@ class MeetingForcedRank extends Component {
             url: `${API_URL}/meetings/card/active/`,
             method: 'GET',
             params: {
-                meeting_uuid: meetingID
+                activity_uuid: meetingID
             }
         }).then(({data}) => {
             const {cards } = data;
@@ -76,10 +59,9 @@ class MeetingForcedRank extends Component {
 
 
     render(){
-        const { match, history } = this.props;
-        const {  params : { meetingID }} = match;
+        const { history, nextURL } = this.props;
         const { activeCards } = this.state;
-        const displayActiveCards =  !!( activeCards && activeCards.length > 0)
+        const displayActiveCards =  !!( activeCards && activeCards.length > 0);
         return(
             <Fragment>
             <h1> Forced Rank </h1>
@@ -96,14 +78,13 @@ class MeetingForcedRank extends Component {
                   activeCards={activeCards} 
                   setPrioritizedCards={this.setPrioritizedCards} />
               </DndProvider>
-                
             }
             <p>
               Low Rank
             </p>
             </ListContainerStyled>
             <div>
-            <Button onClick={()=> history.push(`/meeting/activity/${meetingID}/bucketing/`)} text="Next" />
+            <Button onClick={()=> history.push(nextURL)} text="Next" />
             </div>
         </Fragment>
         )

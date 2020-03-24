@@ -38,7 +38,7 @@ class MeetingPrioritize extends Component {
             url: `${API_URL}/meetings/card/active/`,
             method: 'GET',
             params: {
-                meeting_uuid: meetingID
+                activity_uuid: meetingID
             }
           })
         .then(({data}) => {
@@ -63,7 +63,7 @@ class MeetingPrioritize extends Component {
         const {  params : { meetingID }} = match;
 
         const postData = {
-          'meeting_uuid': meetingID,
+          'activity_uuid': meetingID,
           'prioritized_cards': prioritizedCards
       };
         const response = await BridgeWebAPI.request({

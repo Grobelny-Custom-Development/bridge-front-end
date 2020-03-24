@@ -53,7 +53,7 @@ class MeetingBrainstormSummary extends Component {
             url: brainstormURL, 
             method: 'GET',
             params: {
-                meeting_uuid: meetingID
+                activity_uuid: meetingID
             }
          }).then(({data}) => {
             // TODO potentially just do this on the backend

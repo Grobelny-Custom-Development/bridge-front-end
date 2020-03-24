@@ -31,7 +31,7 @@ class MeetingBucketing extends Component {
             url: `${API_URL}/meetings/card/active/`,
             method: 'GET',
             params: {
-                meeting_uuid: meetingID
+                activity_uuid: meetingID
             }
         }).then(({data}) => {
             const {cards } = data;
@@ -45,7 +45,7 @@ class MeetingBucketing extends Component {
           url: `${API_URL}/activity/bucketing/`,
           method: 'GET',
           params: {
-              meeting_uuid: meetingID
+              activity_uuid: meetingID
           }
       }).then(({data}) => {
           const {buckets } = data;
@@ -55,9 +55,9 @@ class MeetingBucketing extends Component {
     }
 
     completeActivity = (droppedSubmission) => {
-      const { match, history, token } = this.props;
+      const { match, history, token, nextURL } = this.props;
       const {  params : { meetingID }} = match;
-      const postData = {'submission': droppedSubmission, 'meeting_uuid': meetingID};
+      const postData = {'submission': droppedSubmission, 'activity_uuid': meetingID};
       BridgeWebAPI.request({
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -67,7 +67,7 @@ class MeetingBucketing extends Component {
         method: 'POST',
         data: postData,
     }).then(({data}) => {
-      history.push(`/meeting/activity/${meetingID}/bucketing/summary/`)
+      history.push(nextURL)
     })
     }
 

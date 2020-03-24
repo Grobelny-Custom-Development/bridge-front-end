@@ -24,7 +24,7 @@ class MeetingPrioritizeSummary extends Component {
             url: `${API_URL}/meetings/prioritization/`,
             method: 'GET',
             params: {
-                meeting_uuid: meetingID
+                activity_uuid: meetingID
             }
         }).then(({data}) => {
             const { brainstorm_cards } = data;

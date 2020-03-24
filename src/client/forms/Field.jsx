@@ -10,7 +10,7 @@ const Field = ({ formik, name, label, placeholder, type }) => {
 
     return(
       <div className="control">
-        <Input type={type} label={label} name={name} formik={frmk} placeholder={placeholder}/>
+        <Input type={type} name={name} formik={frmk} placeholder={placeholder}/>
       </div>
     )
 }

@@ -1,6 +1,6 @@
 import {
   SET_TOKEN,
-} from '../UserActionType.js';
+} from '../actionTypes/UserActionType.js';
 
 const initialState = {
   token: null,

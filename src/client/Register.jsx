@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import S from './formStyles.js';
 import PropTypes from 'prop-types';
-import { setToken } from './UserActions.js';
+import { setToken } from './actions/UserActions.js';
 import Button from './bridge-components/Button.jsx';
 
 const Register = ({ setTokenAction, history }) => {

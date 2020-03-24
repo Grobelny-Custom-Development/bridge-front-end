@@ -6,7 +6,7 @@ const baseConfig = require('./webpack.base');
 
 const API_URL = {
   production: JSON.stringify('https://bridge-api-dev.herokuapp.com'),
-  development: JSON.stringify('http://localhost:8000'),
+  development: JSON.stringify('http://localhost:9000'),
 };
 
 const config = {

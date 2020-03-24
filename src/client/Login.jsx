@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from "react";
-import { setToken } from './UserActions.js';
+import React, { useState } from "react";
+import { setToken } from './actions/UserActions.js';
 
 import BridgeWebAPI from './helpers/api.js';
 import PageError from './helpers/PageError.jsx';

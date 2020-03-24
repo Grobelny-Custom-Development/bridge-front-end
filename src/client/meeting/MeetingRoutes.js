@@ -9,9 +9,10 @@ import MeetingBrainstorm from './MeetingBrainstorm.jsx';
 import MeetingPrioritize from './ranking/MeetingPrioritize.jsx';
 import MeetingForcedRank from './ranking/MeetingForcedRank.jsx';
 import MeetingBucketing from './grouping/MeetingBucketing.jsx';
+import Grouping from './grouping/Grouping.jsx';
 
 
-// Summary Components 
+// Summary Components
 import MeetingPrioritizeSummary from './summary/MeetingPrioritizeSummary.jsx';
 import MeetingBrainstormSummary from './summary/MeetingBrainstormSummary.jsx';
 import MeetingForcedRankSummary from './summary/MeetingForcedRankSummary.jsx';
@@ -62,5 +63,9 @@ export default [
   {
     path: '/meeting/activity/:meetingID/bucketing/',
     component: MeetingBucketing,
+  },
+  {
+    path: '/meeting/activity/:meetingID/grouping/',
+    component: Grouping,
   },
 ];

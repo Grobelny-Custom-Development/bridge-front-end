@@ -4,6 +4,7 @@ import React, { Fragment, Component } from "react";
 import { connect } from 'react-redux';
 import BridgeWebAPI from '../../helpers/api.js';
 import Button from '../../bridge-components/Button.jsx';
+import { setComponents, setParticipants } from '../../actions/ComponentActions.js';
 
 const BoxItemStyled = styled.div`
     color: black;
@@ -38,6 +39,8 @@ class MeetingPreview extends Component {
         this.state = {
           activeMeetingTemplate: null,
           meetingUUID:null,
+          nextActivity:null,
+          activeComponents: null,
         }
       }
 
@@ -54,9 +57,14 @@ class MeetingPreview extends Component {
               meeting_uuid: meetingID
           }
         })).then(({data}) => {
-            const { meeting } = data;
+            const { meeting, activities, participants } = data;
             const { meeting_template : meetingTemplate } = meeting;
-            this.setState({ activeMeetingTemplate: meetingTemplate, meetingUUID: meeting.meeting_uuid})
+            this.setState({ activeMeetingTemplate: meetingTemplate, meetingUUID: meeting.meeting_uuid, activeComponents: activities })
+            this.props.setComponentsAction(activities)
+            this.props.setParticipantsAction(participants)
+            // next activity
+            this.setState({nextActivity: activities[0]})
+
         })
         .catch((error) => {
             console.log(error);
@@ -65,8 +73,9 @@ class MeetingPreview extends Component {
     
 
     render(){
-        const { activeMeetingTemplate, meetingUUID } = this.state;
+        const { activeMeetingTemplate, nextActivity, activeComponents } = this.state;
         const { history } = this.props;
+        const nextActivityURL = (nextActivity)? `/meeting/activity/${nextActivity.activity_uuid}/${nextActivity.activity_type}/` : '';
         return(
         <Fragment>
             {
@@ -76,8 +85,8 @@ class MeetingPreview extends Component {
                     
                     <h2>{`${activeMeetingTemplate.name}`}</h2>
                     <h3>{`${activeMeetingTemplate.description}`}</h3>
-                    { activeMeetingTemplate.components.length > 0 && (
-                      activeMeetingTemplate.components.map( (component) => (
+                    { activeComponents.length > 0 && (
+                      activeComponents.map( (component) => (
                         <ComponentRowStyled>
                         <p>{component.agenda_item}</p>
                         <p>{component.name}</p>
@@ -90,7 +99,7 @@ class MeetingPreview extends Component {
 
                     }
                     </BoxItemStyled>
-                    <Button onClick={ () => history.push(`/meeting/activity/${meetingUUID}/brainstorm/`)} text="Start Prework"/>
+                    <Button onClick={ () => history.push(nextActivityURL)} text="Start Prework"/>
                   </Fragment>
                 )
 
@@ -110,12 +119,19 @@ const mapStateToProps = ({
         user: {
           token,
         },
+        components,
+        participants,
       }
   }) => ({
     token
   });
 
+const mapDispatchToProps = dispatch => ({
+    setComponentsAction: components => dispatch(setComponents(components)),
+    setParticipantsAction: participants => dispatch(setParticipants(participants))
+});
+
 export default connect(
     mapStateToProps,
-    null,
+    mapDispatchToProps,
 )(MeetingPreview);

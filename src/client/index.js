@@ -14,7 +14,6 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import { CookieStorage } from 'redux-persist-cookie-storage';
 import Cookies from 'cookies-js';
 
-import serialize from 'serialize-javascript';
 import rootReducer from './reducers';
 import * as serviceWorker from '../serviceWorker';
 import Routes from './Routes.js';

@@ -8,6 +8,7 @@ import BridgeWebAPI from '../../helpers/api.js';
 import Button from '../../bridge-components/Button.jsx';
 
 
+
 const MeetingCreate = (props) => {
         // React Hooks declaration
         const [meetingName, setMeetingName] = useState("");
@@ -30,6 +31,7 @@ const MeetingCreate = (props) => {
           }))
           const { data } = result;
           setComponentList(data.components);
+          props.setComponentsAction(data.components);
       }
  
         useEffect( () => {
@@ -99,7 +101,7 @@ const mapStateToProps = ({
     },
   }
       }) => ({
-        token
+        token,
       });
     
 export default connect(
